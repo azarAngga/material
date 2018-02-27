@@ -42,8 +42,9 @@ export class LoginPage {
   putLogin(){
     if(this.username != null && this.password != null && this.username != "" && this.password != ""){
         this.presentLoading();
-        console.log('http://10.40.108.153/hana/hana/ios/get_data_hana_login_default.php?username='+this.username+'&password='+this.password);
-        this.http.get('http://apps.telkomakses.co.id/hana/ios/get_data_hana_login_default.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
+        console.log('http://10.40.108.153/api_test/amalia/login.php?username='+this.username+'&password='+this.password);
+        //this.http.get('http://apps.telkomakses.co.id/hana/ios/get_data_hana_login_default.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
+        this.http.get('http://10.40.108.153/api_test/amalia/login.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
          this.items = data;
          console.log(this.items);
          if(this.items.result[0].status != ""){
@@ -53,7 +54,12 @@ export class LoginPage {
             this.events.publish('menu:tampil', this.pages);
             this.loadMenu();
             this.setData("oke");
+
+
             this.setNik(this.username);
+             //this.setNik('15892492');
+
+
             this.navCtrl.setRoot(HomePage);
             this.loader.dismiss();
          }else{
