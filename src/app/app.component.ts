@@ -11,6 +11,9 @@ import { ChoserPage } from '../pages/choser/choser';
 import { ListWoPage } from '../pages/list-wo/list-wo';
 import { CreateWoPage } from '../pages/create-wo/create-wo';
 import { PemakaianPage } from '../pages/pemakaian/pemakaian';
+import { Pemakaian2Page } from '../pages/pemakaian2/pemakaian2';
+import { Pemakaian3Page } from '../pages/pemakaian3/pemakaian3';
+import { Pemakaian4Page } from '../pages/pemakaian4/pemakaian4';
 
 
 @Component({
@@ -19,10 +22,10 @@ import { PemakaianPage } from '../pages/pemakaian/pemakaian';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = PemakaianPage;
 
   nama: any;
-  jabatan: any;
+  jabatan: any; 
   foto: any;
   pages: Array<{title: string, component: any}>;
 
@@ -55,11 +58,12 @@ export class MyApp {
               { title: 'Logout', component: LoginPage }
             ];
               console.log('tampil', val);
-              this.rootPage = HomePage;
+              this.rootPage = PemakaianPage;
               //this.rootPage = ListWoPage;
           }else{
               console.log('login', val);
-              this.rootPage = LoginPage;
+              //this.rootPage = Pemakaian3Page;
+              //this.rootPage = LoginPage;
               //this.rootPage = CreateWoPage;
           }
     

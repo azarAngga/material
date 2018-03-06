@@ -79,7 +79,8 @@ export class HomePage {
       //nik = '91150102';
       //nik = '81131614';
       //nik = '97150427';
-      nik = '17870134';
+      //nik = '17870134';
+      nik = '15891348';
 
       //this.http.get('http://180.250.124.181/API/alista/ios/get_data_team_leader.php?nik='+nik)
       this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_team_leader.php?nik='+nik)
@@ -175,8 +176,8 @@ export class HomePage {
   	console.log("ini_parmeter "+wo);
 
   	//execute url post
-    this.http.post('http://10.40.108.153/api_test/alista/ios/put_data_pemakaian.php',wo,requestOptions)
-  	//this.http.post('http://api.telkomakses.co.id/API/alista/ios/put_data_pemakaian2.php',wo,requestOptions)
+    //this.http.post('http://10.40.108.153/api_test/alista/ios/put_data_pemakaian.php',wo,requestOptions)
+  	this.http.post('http://api.telkomakses.co.id/API/alista/ios/put_data_pemakaian2.php',wo,requestOptions)
   	.map(res => res.json())
   	.subscribe(data => {
   		var data_response = data.status;
@@ -270,8 +271,8 @@ export class HomePage {
 	  	//let wo = 'nik=97150427';
 	  	
 	  	//execute url post
-      this.http.post('http://10.40.108.153/api_test/alista/get_data_list_material.php',wo,requestOptions)
-	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
+      //this.http.post('http://10.40.108.153/api_test/alista/get_data_list_material.php',wo,requestOptions)
+	  	this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
 	  	.map(res => res.json())
 	  	.subscribe(data => {
 	  		this.data_wo = data;
@@ -284,8 +285,8 @@ export class HomePage {
 	}
 
     checkUpdate(){
-      this.http.get('http://10.40.108.153/api_test/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
-      //this.http.get('http://180.250.124.181/API/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
+      //this.http.get('http://10.40.108.153/api_test/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
+      this.http.get('http://180.250.124.181/API/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
           var versi_now = data.update[0].versi;
           var trigger = data.update[0].trigger;
           var message = data.update[0].message;

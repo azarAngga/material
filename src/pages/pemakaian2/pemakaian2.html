@@ -1,0 +1,229 @@
+<!--
+  Generated template for the Pemakaian2Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>pemakaian2</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div align="center">
+		<label>LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</label>
+	</div>
+	<button ion-button full>Full Button</button>
+	<ion-card>
+	  <ion-card-content>
+	    	<div align="center">
+				<table border="1" width="100%">
+					<tr>
+						<th width="30%" rowspan="2" >TEST LAYANAN</th>
+						<th width="30%" rowspan="2" >CONTOH</th>
+						<th width="30%">KRITERIA</th>
+					</tr>
+					<tr>
+						<td>
+							<table border="1" width="100%">
+							<tr>
+								<td width="50%" align="center">Baik</td>
+								<td width="50%" align="center">Buruk</td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>Test Voice</td>
+						<td>Call</td>
+						<td>
+							<ion-list radio-group [(ngModel)]="relationship">
+							<table border="1" width="100%">
+							<tr>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+							</tr>
+							</table>
+							</ion-list>
+						</td>
+					</tr>
+					<tr>
+						<td>Test Internet</td>
+						<td>Https://wwww.</td>
+						<td>
+							<ion-list radio-group [(ngModel)]="relationship" >
+							<table border="1" width="100%">
+							<tr>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+							</tr>
+							</table>
+							</ion-list>
+						</td>
+					</tr>
+					<tr>
+						<td>Test UseTV</td>
+						<td>Chanel</td>
+						<td>
+							<ion-list radio-group [(ngModel)]="relationship" >
+							<table border="1" width="100%">
+							<tr>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+								<td width="50%" align="center">
+									<ion-item>
+						                <ion-radio value="friends1" checked></ion-radio>
+						            </ion-item>
+								</td>
+							</tr>
+							</table>
+							</ion-list>
+						</td>
+					</tr>
+				</table>
+			</div>
+	  </ion-card-content>
+	</ion-card>
+
+		<ion-card>
+			<ion-card-header>
+		    Test Jaringan
+		    </ion-card-header>
+	  		<ion-card-content>
+	  			<table border="1" >
+	  				<tr>
+	  					<td colspan="2">
+	  						
+	  					</td>
+
+	  				</tr>
+	  				<tr>
+	  					<td>1.Test Ping</td>
+	  					<td>
+	  						<ion-item>
+							    <ion-input type="text" placeholder="...ms"></ion-input>
+							</ion-item>
+
+	  					</td>
+	  				</tr>
+	  				<tr>
+	  					<td>2.Test Upload</td>
+	  					<td>
+	  						<ion-item>
+							    <ion-input type="text" placeholder="...mbps"></ion-input>
+							</ion-item>
+
+	  					</td>
+	  				</tr>
+	  				<tr>
+	  					<td>3.Test Download</td>
+	  					<td>
+	  						<ion-item>
+							    <ion-input type="text" placeholder="...mbps"></ion-input>
+							</ion-item>
+
+	  					</td>
+	  				</tr>
+	  				<tr>
+	  					<td>4.Hasil Ukur Kedalaman</td>
+	  					<td>
+	  						<ion-item>
+							    <ion-input type="text" placeholder="...db"></ion-input>
+							</ion-item>
+
+	  					</td>
+	  				</tr>
+
+	  			</table>
+	  		</ion-card-content>
+	  	</ion-card>
+	  	<ion-card>
+
+		  <ion-card-header>
+		    CATATAN KHUSUS (IKR,ONT,STB) 
+		  </ion-card-header>
+
+		  <ion-card-content>
+		    <ion-list radio-group>
+
+			   <ion-list radio-group [(ngModel)]="relationship">
+				<table  width="100%">
+				<tr>
+					<td width="10%" valign="top">
+			             <ion-radio value="friends1" checked></ion-radio>
+			         </td>
+			        <td valign="top">
+			        	Pelanggan belum / tidak memiliki TV set dan bersedia menitipkan STB ke Telkom
+			        </td>
+					
+				</tr>
+				<tr>
+					<td width="10%" valign="top">
+		                <ion-radio value="friends1" checked></ion-radio>
+					</td>
+					<td>
+						Pelanggan belum / tidak menginginkan Usee TV dan bersedia menitipkan STB ke Telkom	
+					</td>
+				</tr>
+				<tr>
+					<td width="10%" valign="top">
+		                <ion-radio value="friends1" checked></ion-radio>
+					</td>
+					<td>
+						<tr>
+							<td>lain-lain</td> 
+							<td>
+								<ion-item>
+									<ion-input type="text" placeholder="..."></ion-input>
+								</ion-item>
+							</td> 
+						</tr>  
+						
+					</td>
+				</tr>
+				</table>
+				</ion-list>
+			</ion-list>
+		  </ion-card-content>
+		</ion-card>
+		<table width="100%">
+		<tr>
+			<td>
+				<div align="left">
+				  <br/>
+				  <button ion-button color="danger" right>Back</button>
+				</div>
+			</td>
+			<td>
+				<div align="right">
+				  <br/>
+				  <button ion-button color="danger" right>Next</button>
+				</div>
+			</td>
+		</tr>
+		</table>
+		
+</ion-content>

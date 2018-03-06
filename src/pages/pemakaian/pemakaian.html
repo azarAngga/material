@@ -12,86 +12,134 @@
 
 </ion-header>
 
-
 <ion-content padding>
-<ion-item>
-    <ion-label>No WO</ion-label>
+
+<ion-list radio-group [(ngModel)]="relationship">
+  <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label >Nama Mitra</ion-label>
+        </ion-col>
+          <ion-col>
+              <ion-item>
+                <ion-label >Friends</ion-label>
+                <ion-radio value="friends1" checked></ion-radio>
+              </ion-item>
+          </ion-col>
+          <ion-col>
+              <ion-item>
+                <ion-label >Friends</ion-label>
+                <ion-radio value="friends" ></ion-radio>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-list>
+
+
+  <ion-item>
+    <ion-label floating>No WO</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>STO</ion-label>
+    <ion-label floating>STO</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>No Permintaan</ion-label>
+    <ion-label floating>No Permintaan</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No Telepon</ion-label>
+    <ion-label floating>No Telepon</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
    <ion-item>
-    <ion-label>No Inet</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-   <ion-item>
-    <ion-label>Tanggal WO</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-   <ion-item>
-    <ion-label>Tanggal Transaksi</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-   <ion-item>
-    <ion-label>Nama Pelanggan</ion-label>
+    <ion-label floating>No Inet</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
-  <label>Datek</label>
+  <ion-item>
+    <ion-label floating>Start Time</ion-label>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" ></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Start Time</ion-label>
+    <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" ></ion-datetime>
+  </ion-item>
+   <ion-item>
+    <ion-label floating>Nama Pelanggan</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <label><font color="red">Datek</font></label>
 
    <ion-item>
-    <ion-label>Nama Mitra</ion-label>
+    <ion-label floating>HK/MSAN/ODC</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No Wo</ion-label>
+    <ion-label floating>DP/ODP</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>STO</ion-label>
+    <ion-label floating>Klem Primer/Feeder</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No Permintaan</ion-label>
+    <ion-label floating>Klem Sec/Distribusi</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>No Telepon</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-
+  
  <label>Material</label>
  <ion-item>
-    <ion-label>Panjang Drop Core</ion-label>
+    <ion-label floating>Panjang Drop Core</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+ <table>
+   <tr>
+     <td> 
+        <ion-label >Drop Core</ion-label>
+    </td>
+    <td>
+      <ion-item>
+        <ion-input type="text" placeholder="Meter Awal"></ion-input>
+      </ion-item>
+    </td>
+    <td>
+        <ion-item>
+        <ion-input type="text" placeholder="Meter Akhir"></ion-input>
+      </ion-item>
+    </td>
+   </tr>
+ </table>
+  <ion-item>
+    <ion-label floating>Panjang UTP</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No WO</ion-label>
+    <ion-label floating>Panjang Pvc</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>STO</ion-label>
+    <ion-label floating>Jumlah Breket</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No Permintaan</ion-label>
+    <ion-label floating>Jumlah Klem Ring</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>No Telepon</ion-label>
+    <ion-label floating>Jumlah Tiang Telpn</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
+
+<div align="right">
+  <br/>
+  <button ion-button color="danger" right>Next</button>
+</div>
+
 
 </ion-content>
