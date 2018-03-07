@@ -15,18 +15,18 @@
 
 <ion-content padding>
 	<div align="center">
-		<label>LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</label>
+		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
 	</div>
 	<ion-card>
 	  <ion-card-content>
 	    	<div align="center">
 				<table  width="100%">
 					<tr>
-						<th width="60%" colspan="2" >Modern yang dipasang / ditarik *) </th>
+						<th width="60%" colspan="2" >Modem yang dipasang / ditarik *) </th>
 						<th width="40%"  >
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text" placeholder="..."></ion-input>
+							    <ion-input type="text" [(ngModel)]="modem" placeholder="..."></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</th>
@@ -35,15 +35,17 @@
 						<td>
 							SN ONT
 						</td>
-						<td>
-							<button  ion-button icon-left>
-							  Scan
-							  <ion-icon name="home"></ion-icon>
-							</button>
+						<td >
+							<div style="margin-left: -10px">
+								<button  ion-button icon-left>
+								  Scan &nbsp;
+								  <ion-icon name="md-barcode"></ion-icon>
+								</button>
+							</div>
 						</td>
 						<ion-list>
 						  <ion-item>
-						    <ion-input type="text" placeholder="..."></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_ont" placeholder="..."></ion-input>
 						  </ion-item>
 						  </ion-list>
 						<td>
@@ -54,14 +56,16 @@
 							SN MODEM
 						</td>
 						<td>
-							<button  ion-button icon-left>
-							  Scan
-							  <ion-icon name="home"></ion-icon>
-							</button>
+							<div style="margin-left: -10px">
+								<button  ion-button icon-left>
+								  Scan &nbsp;
+								  <ion-icon name="md-barcode"></ion-icon>
+								</button>
+							</div>
 						</td>
 						<ion-list>
 						  <ion-item>
-						    <ion-input type="text" placeholder="..."></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_modem" placeholder="..."></ion-input>
 						  </ion-item>
 						  </ion-list>
 						<td>
@@ -78,17 +82,17 @@
 					</tr>
 					<tr>
 						<td valign="top" width="40%">
-							  <ion-checkbox color="green" ></ion-checkbox>
+							  <ion-checkbox color="green" value="1" [(ngModel)]="power"></ion-checkbox>
 							 Power
 						</td>
 						<td valign="top" width="30%">
 							
-							  <ion-checkbox color="green" ></ion-checkbox>
+							  <ion-checkbox color="green" value="1" [(ngModel)]="dsl"></ion-checkbox>
 							DSL
 						</td>
 						<td valign="top">
 						
-							  <ion-checkbox color="green" ></ion-checkbox>
+							  <ion-checkbox color="green" value="1" [(ngModel)]="internet" ></ion-checkbox>
 							  Internet
 						</td>
 					</tr>
@@ -97,7 +101,7 @@
 						<td width="60%" colspan="2" >
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text" placeholder="..."></ion-input>
+							    <ion-input type="text"  [(ngModel)]="mac_address" placeholder="..."></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -107,7 +111,7 @@
 						<td width="60%"  colspan="2">
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text" placeholder="..."></ion-input>
+							    <ion-input [(ngModel)]="nama" type="text" placeholder="..."></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -117,7 +121,7 @@
 						<td width="60%"  colspan="2">
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text" placeholder="..."></ion-input>
+							    <ion-input [(ngModel)]="notel_teknisi" type="text" placeholder="..."></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -128,25 +132,24 @@
 	</ion-card>
 
 	<ion-card>
-
 	  <ion-card-header>
 	    PSB
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group>
+	  	<ion-list radio-group [(ngModel)]="psb">
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
-		    		<ion-radio checked="true" value="1P"></ion-radio> 1P
+		    		<ion-radio  checked="true" value="1P"></ion-radio> 1P
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="3p"></ion-radio> 3P
+		    		<ion-radio   value="3p"></ion-radio> 3P
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="2P"></ion-radio> 2P
+		    		<ion-radio value="2p"></ion-radio> 2P
 		    	</td>
 		    	<td>
 		    		<ion-radio  value="STP Tambahan"></ion-radio> STP Tambahan
@@ -155,16 +158,15 @@
 	    </table>
 		</ion-list>
 	  </ion-card-content>
-
 	</ion-card>
-	<ion-card>
 
+	<ion-card>
 	  <ion-card-header>
 	    Migrasi
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group>
+	  	<ion-list radio-group [(ngModel)]="migrasi">
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
@@ -185,8 +187,8 @@
 	    </table>
 		</ion-list>
 	  </ion-card-content>
-
 	</ion-card>
+	
 	<ion-card>
 
 	  <ion-card-header>
@@ -194,7 +196,7 @@
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group>
+	  	<ion-list radio-group [(ngModel)]="speed">
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
@@ -229,18 +231,16 @@
 	    				</td>
 	    				<td><ion-item>
 						    <ion-label fixed>Other</ion-label>
-						    <ion-input type="text" value=""></ion-input>
+						    <ion-input [(ngModel)]="speed_other" type="text" value=""></ion-input>
 						  </ion-item>
 						</td>
 	    			</tr>
 		    		</table>
 		    	</td>
-		    	
 	    	</tr>
 	    </table>
 		</ion-list>
 	  </ion-card-content>
-
 	</ion-card>
 
 		<table width="100%">

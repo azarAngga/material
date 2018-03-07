@@ -15,9 +15,9 @@
 
 <ion-content padding>
 	<div align="center">
-		<label>LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</label>
+		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
 	</div>
-	<button ion-button full>Full Button</button>
+	<button ion-button full>Test Usage</button>
 	<ion-card>
 	  <ion-card-content>
 	    	<div align="center">
@@ -38,20 +38,20 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Test Voice</td>
-						<td>Call</td>
+						<td>&nbsp;Test Voice</td>
+						<td>&nbsp;Call</td>
 						<td>
-							<ion-list radio-group [(ngModel)]="relationship">
+							<ion-list radio-group [(ngModel)]="kriteria1">
 							<table border="1" width="100%">
 							<tr>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="good1" checked></ion-radio>
 						            </ion-item>
 								</td>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="bad1" checked></ion-radio>
 						            </ion-item>
 								</td>
 							</tr>
@@ -60,20 +60,20 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Test Internet</td>
-						<td>Https://wwww.</td>
+						<td>&nbsp;Test Internet</td>
+						<td>&nbsp;Https://wwww.</td>
 						<td>
-							<ion-list radio-group [(ngModel)]="relationship" >
+							<ion-list radio-group [(ngModel)]="kriteria2" >
 							<table border="1" width="100%">
 							<tr>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="good2" checked></ion-radio>
 						            </ion-item>
 								</td>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="bad2" checked></ion-radio>
 						            </ion-item>
 								</td>
 							</tr>
@@ -82,20 +82,20 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Test UseTV</td>
-						<td>Chanel</td>
+						<td>&nbsp;Test UseTV</td>
+						<td>&nbsp;Chanel</td>
 						<td>
-							<ion-list radio-group [(ngModel)]="relationship" >
+							<ion-list radio-group [(ngModel)]="kriteria3" >
 							<table border="1" width="100%">
 							<tr>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="good3" checked></ion-radio>
 						            </ion-item>
 								</td>
 								<td width="50%" align="center">
 									<ion-item>
-						                <ion-radio value="friends1" checked></ion-radio>
+						                <ion-radio value="bad3" checked></ion-radio>
 						            </ion-item>
 								</td>
 							</tr>
@@ -121,37 +121,37 @@
 
 	  				</tr>
 	  				<tr>
-	  					<td>1.Test Ping</td>
+	  					<td>&nbsp;1.Test Ping</td>
 	  					<td>
 	  						<ion-item>
-							    <ion-input type="text" placeholder="...ms"></ion-input>
+							    <ion-input type="text" [(ngModel)]="test_ping" placeholder="...ms"></ion-input>
 							</ion-item>
 
 	  					</td>
 	  				</tr>
 	  				<tr>
-	  					<td>2.Test Upload</td>
+	  					<td>&nbsp;2.Test Upload</td>
 	  					<td>
 	  						<ion-item>
-							    <ion-input type="text" placeholder="...mbps"></ion-input>
+							    <ion-input type="text" [(ngModel)]="test_upload" placeholder="...mbps"></ion-input>
 							</ion-item>
 
 	  					</td>
 	  				</tr>
 	  				<tr>
-	  					<td>3.Test Download</td>
+	  					<td>&nbsp;3.Test Download</td>
 	  					<td>
 	  						<ion-item>
-							    <ion-input type="text" placeholder="...mbps"></ion-input>
+							    <ion-input type="text" [(ngModel)]="test_download" placeholder="...mbps"></ion-input>
 							</ion-item>
 
 	  					</td>
 	  				</tr>
 	  				<tr>
-	  					<td>4.Hasil Ukur Kedalaman</td>
+	  					<td>&nbsp;4.Hasil Ukur &nbsp;Kedalaman</td>
 	  					<td>
 	  						<ion-item>
-							    <ion-input type="text" placeholder="...db"></ion-input>
+							    <ion-input type="text" [(ngModel)]="hasil_ukur" placeholder="...db"></ion-input>
 							</ion-item>
 
 	  					</td>
@@ -169,11 +169,11 @@
 		  <ion-card-content>
 		    <ion-list radio-group>
 
-			   <ion-list radio-group [(ngModel)]="relationship">
+			   <ion-list radio-group [(ngModel)]="catatan_khusus">
 				<table  width="100%">
 				<tr>
 					<td width="10%" valign="top">
-			             <ion-radio value="friends1" checked></ion-radio>
+			             <ion-radio value="catatan1" checked></ion-radio>
 			         </td>
 			        <td valign="top">
 			        	Pelanggan belum / tidak memiliki TV set dan bersedia menitipkan STB ke Telkom
@@ -182,7 +182,7 @@
 				</tr>
 				<tr>
 					<td width="10%" valign="top">
-		                <ion-radio value="friends1" checked></ion-radio>
+		                <ion-radio value="catatan2" ></ion-radio>
 					</td>
 					<td>
 						Pelanggan belum / tidak menginginkan Usee TV dan bersedia menitipkan STB ke Telkom	
@@ -190,18 +190,17 @@
 				</tr>
 				<tr>
 					<td width="10%" valign="top">
-		                <ion-radio value="friends1" checked></ion-radio>
+		                <ion-radio value="catatan3" ></ion-radio>
 					</td>
 					<td>
 						<tr>
 							<td>lain-lain</td> 
 							<td>
 								<ion-item>
-									<ion-input type="text" placeholder="..."></ion-input>
+									<ion-input type="text" [(ngModel)]="catatan_lain" placeholder="..."></ion-input>
 								</ion-item>
 							</td> 
 						</tr>  
-						
 					</td>
 				</tr>
 				</table>

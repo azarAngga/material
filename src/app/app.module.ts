@@ -23,6 +23,7 @@ import { ChoserPage } from '../pages/choser/choser';
 import { ListWoPage } from '../pages/list-wo/list-wo';
 import { CreateWoPage } from '../pages/create-wo/create-wo';
 import { ModalNikBawahanPage } from '../pages/modal-nik-bawahan/modal-nik-bawahan'; 
+import { MitraPage } from '../pages/mitra/mitra';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,6 +31,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
+    MitraPage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,
@@ -51,6 +53,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    MitraPage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,

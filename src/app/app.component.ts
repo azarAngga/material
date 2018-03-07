@@ -14,6 +14,7 @@ import { PemakaianPage } from '../pages/pemakaian/pemakaian';
 import { Pemakaian2Page } from '../pages/pemakaian2/pemakaian2';
 import { Pemakaian3Page } from '../pages/pemakaian3/pemakaian3';
 import { Pemakaian4Page } from '../pages/pemakaian4/pemakaian4';
+import { MitraPage } from '../pages/mitra/mitra';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { Pemakaian4Page } from '../pages/pemakaian4/pemakaian4';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PemakaianPage;
+  rootPage: any = Pemakaian2Page;
 
   nama: any;
   jabatan: any; 
@@ -58,7 +59,7 @@ export class MyApp {
               { title: 'Logout', component: LoginPage }
             ];
               console.log('tampil', val);
-              this.rootPage = PemakaianPage;
+              this.rootPage = Pemakaian4Page;
               //this.rootPage = ListWoPage;
           }else{
               console.log('login', val);

@@ -6,7 +6,6 @@ import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 
-
 import { Device } from '@ionic-native/device';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';

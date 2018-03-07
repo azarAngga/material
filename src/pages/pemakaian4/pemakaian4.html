@@ -15,7 +15,7 @@
 
 <ion-content padding>
 	<div align="center">
-		<label>LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</label>
+		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
 	</div>
 	<ion-card>
 	  <ion-card-header>
@@ -33,11 +33,11 @@
 	<ion-card>
 
 	  <ion-card-header>
-	    Kendala
+	   <font color="red"> Kendala</font>
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group>
+	  	<ion-list radio-group [(ngModel)]="kendala">
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
@@ -87,11 +87,11 @@
 	<ion-card>
 
 	  <ion-card-header>
-	    Alasan Decline/ Pelanggan tidak memerlukan
+	    <font color="red">Alasan Decline/ Pelanggan tidak memerlukan</font>
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group>
+	  	<ion-list radio-group [(ngModel)]="alasan_decline">
 	    <table width="100%">
 	    	<tr>
 	    		<td >
@@ -101,7 +101,7 @@
 	    					<td>
 	    						<ion-item>
 								    <ion-label fixed></ion-label>
-								    <ion-input type="text" value="" placeholder="..."></ion-input>
+								    <ion-input type="text" [(ngModel)]="menggunakan_isp" value="" placeholder="..."></ion-input>
 								  </ion-item>
 	    					</td>
 	    				</tr>
@@ -125,7 +125,7 @@
 	    					<td valign="top">
 	    						<ion-item>
 								    <ion-label fixed></ion-label>
-								    <ion-input type="text" value="" placeholder="..."></ion-input>
+								    <ion-input [(ngModel)]="harga" type="text" value="" placeholder="..."></ion-input>
 								  </ion-item>
 	    					</td>
 	    				</tr>
