@@ -12,11 +12,12 @@
 
 </ion-header>
 
+
 <ion-content padding>
   <div style="margin: -10px -20px 0px -20px">
   <ion-card>
   <ion-card-content>
-    <ion-list radio-group [(ngModel)]="relationship">
+    <ion-list radio-group [(ngModel)]="perusahaan" (ionChange)="changePerusahan($event)">
     <table>
         <tr>
           <td><div style="margin-left: 15px"><ion-label >Perusahaan</ion-label></div></td>
@@ -24,11 +25,11 @@
             <table>
               <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <ion-radio value="telkom akses" checked></ion-radio>
+                    <ion-radio value="telkom akses" ></ion-radio>
                      PT Telkom Akses
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <ion-radio value="mitra" checked></ion-radio>
+                    <ion-radio value="mitra" ></ion-radio>
                      Mitra
                 </td>
               </tr>
@@ -41,9 +42,10 @@
 </ion-card>
 </div>
 
-  <ion-item (click)="presentProfileModal()">
+  <ion-item (click)="presentProfileModal()" *ngIf="view_nama_mitra == 2">
      <ion-label floating><font color="black">Nama Mitra</font></ion-label>
-    <ion-input disabled  [(ngModel)]="nama_mitra" style="color:grey" placeholder="Nama Mitra"></ion-input>
+    <ion-input  disabled [(ngModel)]="nama_mitra" style="color:grey" placeholder="Nama Mitra"></ion-input>
+    
   </ion-item>
 
   <ion-item>
@@ -151,11 +153,43 @@
     <ion-label floating><font color="black">Jumlah Tiang Telpn</font></ion-label>
     <ion-input [(ngModel)]="jumlah_tiang_telpn" style="color:grey"></ion-input>
   </ion-item>
+  <br/>
+  <div class="border"  >
+    <table>
+      <tr>
+        <td width="90%">
+          New Element:
+        </td>
+        <td width="10%" align="right">
+          <div align="right">
+            <table>
+              <tr>
+                <td>
+                    <button ion-button icon-only (click)="removeElememt()">
+                      <ion-icon name="md-remove"></ion-icon>
+                    </button>
+                </td>
+                <td>
+                    <button ion-button icon-only (click)="newElement()">
+                      <ion-icon name="add"></ion-icon>
+                    </button>
+                </td>
+              </tr>
+            </table>
+            
+          </div>
+        </td>
+      </tr>
+    </table>
+    <hr/>
+      <div id="parent">
+          
+      </div>
+  </div>
 
 <div align="right">
   <br/>
-  <button ion-button color="danger" right>Next</button>
+  <button ion-button color="danger" (click)="actionNext()" right>Next</button>
 </div>
-
 
 </ion-content>

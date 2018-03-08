@@ -41,7 +41,7 @@
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
-		    		<ion-radio checked="true" value="Alamat Tidak Jelas"></ion-radio>Alamat Tidak Jelas
+		    		<ion-radio  value="Alamat Tidak Jelas"></ion-radio>Alamat Tidak Jelas
 		    	</td>
 		    	<td>
 		    		<ion-radio  value="Nama CP belum sesuai"></ion-radio>Nama CP belum sesuai
@@ -91,7 +91,7 @@
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group [(ngModel)]="alasan_decline">
+	  	<ion-list radio-group [(ngModel)]="alasan_decline" (ionChange)="actionChangeAlasanDecline($event)">
 	    <table width="100%">
 	    	<tr>
 	    		<td >
@@ -101,7 +101,9 @@
 	    					<td>
 	    						<ion-item>
 								    <ion-label fixed></ion-label>
-								    <ion-input type="text" [(ngModel)]="menggunakan_isp" value="" placeholder="..."></ion-input>
+								    <ion-input *ngIf="menggunakan_isp_view == 1" type="text" [(ngModel)]="menggunakan_isp" value="" placeholder="..."></ion-input>
+
+								    <ion-input *ngIf="menggunakan_isp_view == 0" type="text" [(ngModel)]="menggunakan_isp" disabled value="" placeholder="..."></ion-input>
 								  </ion-item>
 	    					</td>
 	    				</tr>
@@ -125,7 +127,9 @@
 	    					<td valign="top">
 	    						<ion-item>
 								    <ion-label fixed></ion-label>
-								    <ion-input [(ngModel)]="harga" type="text" value="" placeholder="..."></ion-input>
+								    <ion-input [(ngModel)]="harga" *ngIf="harga_view == 1" type="text" value="" placeholder="..."></ion-input>
+
+								    <ion-input [(ngModel)]="harga" disaled *ngIf="harga_view == 0" type="text" value="" placeholder="..."></ion-input>
 								  </ion-item>
 	    					</td>
 	    				</tr>

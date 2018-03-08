@@ -23,7 +23,7 @@ import { MitraPage } from '../pages/mitra/mitra';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Pemakaian2Page;
+  rootPage: any = PemakaianPage;
 
   nama: any;
   jabatan: any; 
@@ -59,7 +59,7 @@ export class MyApp {
               { title: 'Logout', component: LoginPage }
             ];
               console.log('tampil', val);
-              this.rootPage = Pemakaian4Page;
+              this.rootPage = PemakaianPage;
               //this.rootPage = ListWoPage;
           }else{
               console.log('login', val);
