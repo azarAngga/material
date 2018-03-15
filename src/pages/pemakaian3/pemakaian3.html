@@ -37,7 +37,7 @@
 						</td>
 						<td >
 							<div style="margin-left: -10px">
-								<button  ion-button icon-left>
+								<button (click)="actionScanOnt()"  ion-button icon-left>
 								  Scan &nbsp;
 								  <ion-icon name="md-barcode"></ion-icon>
 								</button>
@@ -57,7 +57,7 @@
 						</td>
 						<td>
 							<div style="margin-left: -10px">
-								<button  ion-button icon-left>
+								<button (click)="actionModem()"  ion-button icon-left>
 								  Scan &nbsp;
 								  <ion-icon name="md-barcode"></ion-icon>
 								</button>
@@ -134,6 +134,7 @@
 	<ion-card>
 	  <ion-card-header>
 	    PSB
+	    <hr/>
 	  </ion-card-header>
 
 	  <ion-card-content>
@@ -163,6 +164,7 @@
 	<ion-card>
 	  <ion-card-header>
 	    Migrasi
+	    <hr/>
 	  </ion-card-header>
 
 	  <ion-card-content>
@@ -193,6 +195,7 @@
 
 	  <ion-card-header>
 	    Speed
+	    <hr/>
 	  </ion-card-header>
 
 	  <ion-card-content>

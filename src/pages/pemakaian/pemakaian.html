@@ -15,22 +15,22 @@
 
 <ion-content padding>
   <div style="margin: -10px -20px 0px -20px">
-  <ion-card>
+  <ion-card width="100%">
   <ion-card-content>
     <ion-list radio-group [(ngModel)]="perusahaan" (ionChange)="changePerusahan($event)">
-    <table>
+    <table width="100%">
         <tr>
           <td><div style="margin-left: 15px"><ion-label >Perusahaan</ion-label></div></td>
           <td>
             <table>
               <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <ion-radio value="telkom akses" ></ion-radio>
-                     PT Telkom Akses
+                    <div style="margin-top: -15px;width: 130px"><ion-radio value="telkom akses" ></ion-radio>
+                     PT Telkom Akses</div>
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <ion-radio value="mitra" ></ion-radio>
-                     Mitra
+                    <div style="margin-top: -15px;margin-left: 10px"><ion-radio value="mitra" ></ion-radio>
+                     Mitra</div>
                 </td>
               </tr>
             </table>
@@ -110,49 +110,12 @@
   
   <br/>
  <label ><font size="5" color="red">MATERIAL</font></label>
- <ion-item>
-    <ion-label floating><font color="black">Panjang Drop Core</font></ion-label>
-    <ion-input [(ngModel)]="pajang_drop" style="color:grey"></ion-input>
-  </ion-item>
- <table>
-   <tr>
-     <td> 
-      <br/>
-      <br/>
-        <div style="margin-left: 15px"><ion-label >Drop Core</ion-label></div>
-    </td>
-    <td>
-      <ion-item>
-        <ion-input [(ngModel)]="meter_awal" style="color:grey" placeholder="Meter Awal"></ion-input>
-      </ion-item>
-    </td>
-    <td>
-        <ion-item>
-        <ion-input [(ngModel)]="meter_akhir" style="color:grey" placeholder="Meter Akhir"></ion-input>
-      </ion-item>
-    </td>
-   </tr>
- </table>
-  <ion-item>
-    <ion-label floating><font color="black">Panjang UTP</font></ion-label>
-    <ion-input [(ngModel)]="panjang_utp" style="color:grey"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating><font color="black">Panjang Pvc</font></ion-label>
-    <ion-input [(ngModel)]="panjang_pvc" style="color:grey"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating><font color="black">Jumlah Breket</font></ion-label>
-    <ion-input [(ngModel)]="jumlah_breket" style="color:grey"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating><font color="black">Jumlah Klem Ring</font></ion-label>
-    <ion-input [(ngModel)]="jumlah_klem_ring" style="color:grey"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating><font color="black">Jumlah Tiang Telpn</font></ion-label>
-    <ion-input [(ngModel)]="jumlah_tiang_telpn" style="color:grey"></ion-input>
-  </ion-item>
+
+
+ <div class="border"  >
+    <div *ngFor="let item of data_material" id="el"><table><tr><td width="40%"><input disabled placeholder="ID Barang" type="text" value="{{item.id_barang}}" class="classInput"/></td><td width="20%"><input type="text" value="{{item.jml_pemakaian}}" disabled placeholder="volume" id="volume" class="classInput"/></td><td  width="20%"><input value="{{item.satuan}}" type="text" disabled placeholder="satuan" id="satuan" class="classInput"/></td></tr></table></div>
+ </div>
+
   <br/>
   <div class="border"  >
     <table>

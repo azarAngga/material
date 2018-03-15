@@ -15,11 +15,9 @@ import { Pemakaian3Page } from '../pemakaian3/pemakaian3';
   templateUrl: 'pemakaian2.html',
 })
 export class Pemakaian2Page {
-	kriteria1: any = 'good1';
-	kriteria2: any = 'good2';
-	kriteria3: any = 'good3';
-
-	gmai
+	kriteria1: any = '1';
+	kriteria2: any = '1';
+	kriteria3: any = '1';
 
 	test_ping: any;
 	test_upload: any;

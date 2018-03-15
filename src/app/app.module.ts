@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule  } from '@ionic/storage';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
@@ -24,6 +25,8 @@ import { ListWoPage } from '../pages/list-wo/list-wo';
 import { CreateWoPage } from '../pages/create-wo/create-wo';
 import { ModalNikBawahanPage } from '../pages/modal-nik-bawahan/modal-nik-bawahan'; 
 import { MitraPage } from '../pages/mitra/mitra';
+import { SignaturePage } from '../pages/signature/signature';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,6 +35,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     MitraPage,
+    SignaturePage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,
@@ -45,7 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ModalNikBawahanPage
   ],
   imports: [
-    HttpModule,
+    HttpModule,SignaturePadModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -54,6 +58,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     MitraPage,
+    SignaturePage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,
@@ -67,6 +72,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ModalNikBawahanPage
   ],
   providers: [
+  BarcodeScanner,
   Device,
   FilePath,
   File,

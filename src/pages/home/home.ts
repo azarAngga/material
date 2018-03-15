@@ -71,7 +71,7 @@ export class HomePage {
     //this.showAlertNews(device.platform);
     storage.get('nik').then((val) => {
       this.setData("oke");
-            this.setNik(val);
+      this.setNik(val);
       var nik = val;
       //nik = '865809';
       //nik = '91160121';
@@ -79,10 +79,11 @@ export class HomePage {
       //nik = '81131614';
       //nik = '97150427';
       //nik = '17870134';
-      nik = '15891348';
+      //nik = '15891348';
 
       //this.http.get('http://180.250.124.181/API/alista/ios/get_data_team_leader.php?nik='+nik)
-      this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_team_leader.php?nik='+nik)
+      //this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_team_leader.php?nik='+nik)
+      this.http.get('http://10.2004.200.8/API/alista/ios/get_data_team_leader.php?nik='+nik)
       .map(res => res.json())
       .subscribe(data => {
         try{
@@ -175,8 +176,9 @@ export class HomePage {
   	console.log("ini_parmeter "+wo);
 
   	//execute url post
+    this.http.post('http://10.204.200.8/API/alista/ios/put_data_pemakaian.php',wo,requestOptions)
     //this.http.post('http://10.40.108.153/api_test/alista/ios/put_data_pemakaian.php',wo,requestOptions)
-  	this.http.post('http://api.telkomakses.co.id/API/alista/ios/put_data_pemakaian2.php',wo,requestOptions)
+  	//this.http.post('http://api.telkomakses.co.id/API/alista/ios/put_data_pemakaian2.php',wo,requestOptions)
   	.map(res => res.json())
   	.subscribe(data => {
   		var data_response = data.status;
@@ -270,8 +272,8 @@ export class HomePage {
 	  	//let wo = 'nik=97150427';
 	  	
 	  	//execute url post
-      //this.http.post('http://10.40.108.153/api_test/alista/get_data_list_material.php',wo,requestOptions)
-	  	this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
+      this.http.post('http://10.204.200.8/API/alista/get_data_list_material.php',wo,requestOptions)
+	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
 	  	.map(res => res.json())
 	  	.subscribe(data => {
 	  		this.data_wo = data;
@@ -285,7 +287,7 @@ export class HomePage {
 
     checkUpdate(){
       //this.http.get('http://10.40.108.153/api_test/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
-      this.http.get('http://180.250.124.181/API/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
+      this.http.get('http://10.204.200.8/API/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
           var versi_now = data.update[0].versi;
           var trigger = data.update[0].trigger;
           var message = data.update[0].message;
@@ -324,7 +326,7 @@ export class HomePage {
       // TODO: Encode the values using encodeURIComponent().
       let body = 'nik='+this.nik;
       console.log('nikName',this.nik);
-      this.http.post('http://api.telkomakses.co.id/API/wimata/ws_get_data_all_or_one.php',body,options)
+      this.http.post('http://10.204.200.8/API/wimata/ws_get_data_all_or_one.php',body,options)
       .map(res =>res.json())
       .subscribe(data =>{
         console.log("dari api",data);
@@ -402,7 +404,7 @@ export class HomePage {
         params : {'fileName': nama}
       };
      
-      var url = "http://apps.telkomakses.co.id/amalia/upload.php";
+      var url = "http://10.204.200.8/API/amalia/uploads.php";
       const fileTransfer: FileTransferObject = this.transfer.create();
     
      

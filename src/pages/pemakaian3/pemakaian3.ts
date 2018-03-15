@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Pemakaian4Page} from'../pemakaian4/pemakaian4';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
+
 /**
  * Generated class for the Pemakaian3Page page.
  *
@@ -32,8 +35,28 @@ export class Pemakaian3Page {
  	other: any;
  	other_view: any = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,private barcodeScanner: BarcodeScanner) {
+    
   }
+
+  actionScanOnt(){
+    this.barcodeScanner.scan().then((barcodeData) => {
+     // Success! Barcode data is here
+     this.sn_ont = barcodeData.text;
+    }, (err) => {
+      alert(err);
+    });
+  }
+
+  actionModem(){
+    this.barcodeScanner.scan().then((barcodeData) => {
+     // Success! Barcode data is here
+     this.sn_modem = barcodeData.text;
+    }, (err) => {
+      alert(err);
+    });
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Pemakaian3Page');

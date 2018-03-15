@@ -5,6 +5,8 @@ import * as $ from 'jquery';
 declare var $: $;
 import { Storage } from '@ionic/storage';
 import { Pemakaian2Page }from '../pemakaian2/pemakaian2';
+import { Http,Headers,RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 
 /**
@@ -46,11 +48,15 @@ export class PemakaianPage {
 	view_nama_mitra: any = 1;
 	perusahaan: any = "telkom akses";
 	no_row: any = 0;
+	data_material: any;
+
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
    public modalCtrl: ModalController,
+   public http: Http,
    private storage: Storage
    ) {
+   	console.log("ddd");
    	  //this.tanggal_mulai 	 = new Date().toISOString();
 	  //this.tanggal_selesai = new Date().toISOString();
       var date1 = new Date();
@@ -61,7 +67,9 @@ export class PemakaianPage {
 	  });
 
       this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
-      this.end_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
+      this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
+      
+      this.actionGetMaterial();
   }
 
 
@@ -151,6 +159,15 @@ export class PemakaianPage {
 		};
 		this.storage.set('data',data);
  		this.navCtrl.push(Pemakaian2Page);
+ 	}
+
+ 	actionGetMaterial(){      
+ 	  this.http.get("http://10.40.108.153/api_test/alista/ios/get_data_material_from_wo.php?no_wo=3434")
+      .map(res => res.json())
+      .subscribe(data => {
+      	console.log(data[0]);
+      	this.data_material = data;
+      },error =>{});
  	}
 
  	// set a key/value

@@ -176,12 +176,13 @@
 			<td><div align="center">Mitra</div></td>
 		</tr>
 		<tr>
-			<td align="center"  width="50%"><div style="border-style: dashed;width: 100px;height: 100px"></div><img src="icon.png"></td>
-			<td align="center" width="50%"><div style="border-style: dashed;width: 100px;height: 100px"></div><img src="icon.png"></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
+			
 		</tr>
 	</table>
+    <button block ion-button color="danger" (click)="actionPut()" right>Submit</button>
 
-    <button block ion-button color="danger" right>Submit</button>
-				
-		
-</ion-content>
+					
+			
+	</ion-content>
