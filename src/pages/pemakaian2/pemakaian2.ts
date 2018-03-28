@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Pemakaian3Page } from '../pemakaian3/pemakaian3';
+import { AlertController } from 'ionic-angular';	
 /**
  * Generated class for the Pemakaian2Page page.
  *
@@ -15,22 +16,23 @@ import { Pemakaian3Page } from '../pemakaian3/pemakaian3';
   templateUrl: 'pemakaian2.html',
 })
 export class Pemakaian2Page {
-	kriteria1: any = '1';
-	kriteria2: any = '1';
-	kriteria3: any = '1';
+	test_voice: any = '1';
+	test_internet: any = '1';
+	test_use_tv: any = '1';
 
 	test_ping: any;
 	test_upload: any;
 	test_download: any;
 	hasil_ukur: any;
 
-	catatan_khusus: any ="catatan1";
-	other: any;
+	catatan_khusus: any ="1";
+	other: any = "";
 
 	other_view: any = 0;
 
 	constructor(public navCtrl: NavController,
 		public navParams: NavParams,
+		public alertCtrl: AlertController,
 		private storage: Storage) {
 	}
 
@@ -39,24 +41,35 @@ export class Pemakaian2Page {
 	}
 
 	actionNext(){
-		var data = {
-			'kriteria1':this.kriteria1,
-			'kriteria2':this.kriteria2,
-			'kriteria3':this.kriteria3,
-			'test_ping':this.test_ping,
-			'test_upload':this.test_upload,
-			'test_download':this.test_download,
-			'hasil_ukur':this.hasil_ukur,
-			'catatan_khusus':this.catatan_khusus,
-			'other':this.other
+		if(this.test_ping == undefined){
+			this.showAlert("Test Ping tidak boleh kosong");
+		}else if(this.test_upload == undefined){
+			this.showAlert("Test Upload tidak boleh kosong");
+		}else if(this.test_download == undefined){
+			this.showAlert("Test Download tidak boleh kosong");
+		}else if(this.hasil_ukur == undefined){
+			this.showAlert("Hasil Ukur tidak boleh kosong");
+		}else{
+			var data = {
+				'test_voice':this.test_voice,
+				'test_internet':this.test_internet,
+				'test_use_tv':this.test_use_tv,
+				'test_ping':this.test_ping,
+				'test_upload':this.test_upload,
+				'test_download':this.test_download,
+				'hasil_ukur':this.hasil_ukur,
+				'catatan_khusus':this.catatan_khusus,
+				'other_catatan':this.other
+			}
+
+		  	this.storage.set('data2',data);
+		  	this.navCtrl.push(Pemakaian3Page);
 		}
 
-	  	this.storage.set('data2',data);
-	  	this.navCtrl.push(Pemakaian3Page);
 	  }
 
 	changeCatatanKhusus(x){
-		if(x == 'catatan3'){
+		if(x == '3'){
 			this.other_view = 1;
 		}else{
 			this.other_view  = 0;
@@ -67,5 +80,14 @@ export class Pemakaian2Page {
 	actionBack(){
 		this.navCtrl.pop();
 	}
+
+ 	showAlert(x){
+      let alert = this.alertCtrl.create({
+        title: 'Alert',
+        subTitle: x,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
 }

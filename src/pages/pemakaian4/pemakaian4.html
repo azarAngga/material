@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+	<div class="text_light">
 	<div align="center">
 		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
 	</div>
@@ -38,45 +39,45 @@
 
 	  <ion-card-content>
 	  	<ion-list radio-group [(ngModel)]="kendala">
-	    <table width="100%">
+	    <table style="margin-left: px;margin-right: -10px" width="100%">
 	    	<tr>
 	    		<td width="50%">
-		    		<ion-radio  value="Alamat Tidak Jelas"></ion-radio>Alamat Tidak Jelas
+		    		<ion-radio  value="Alamat Tidak Jelas"></ion-radio> Alamat Tidak Jelas
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Nama CP belum sesuai"></ion-radio>Nama CP belum sesuai
+		    		<div style="margin-right: -100px"><ion-radio  value="Nama CP belum sesuai"></ion-radio> Nama CP belum sesuai</div>
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Bangunan direhab"></ion-radio>Bangunan direhab
+		    		<ion-radio  value="Bangunan direhab"></ion-radio> Bangunan direhab
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Kendala IKR/G"></ion-radio>Kendala IKR/G
+		    		<ion-radio  value="Kendala IKR/G"></ion-radio> Kendala IKR/G
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Penghuni tidak ada"></ion-radio>Penghuni tidak ada
+		    		<ion-radio  value="Penghuni tidak ada"></ion-radio> Penghuni tidak ada
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Modem rusak"></ion-radio>Modem rusak
+		    		<ion-radio  value="Modem rusak"></ion-radio> Modem rusak
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Primer kritis/habis"></ion-radio>Primer kritis/habis
+		    		<ion-radio  value="Primer kritis/habis"></ion-radio> Primer kritis/habis
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Perangkat belum siap"></ion-radio>Perangkat belum siap
+		    		<ion-radio  value="Perangkat belum siap"></ion-radio> Perangkat belum siap
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Sekunder kritis/habis"></ion-radio>Sekunder kritis/habis
+		    		<ion-radio  value="Sekunder kritis/habis"></ion-radio> Sekunder kritis/habis
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Port multimedia habis"></ion-radio>Port multimedia habis
+		    		<ion-radio  value="Port multimedia habis"></ion-radio> Port multimedia habis
 		    	</td>
 	    	</tr>
 	    </table>
@@ -100,7 +101,7 @@
 	    					<td width="50%"><ion-radio checked="true" value="menggunakan ISP"></ion-radio> menggunakan ISP</td>
 	    					<td>
 	    						<ion-item>
-								    <ion-label fixed></ion-label>
+								    
 								    <ion-input *ngIf="menggunakan_isp_view == 1" type="text" [(ngModel)]="menggunakan_isp" value="" placeholder="..."></ion-input>
 
 								    <ion-input *ngIf="menggunakan_isp_view == 0" type="text" [(ngModel)]="menggunakan_isp" disabled value="" placeholder="..."></ion-input>
@@ -123,10 +124,9 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="50%"><ion-radio  value="Harga yang diinginkan" placeholder="Username"></ion-radio>Harga yang diinginkan</td>
+	    					<td width="50%"><ion-radio  value="Harga yang diinginkan" placeholder="Username"></ion-radio> Harga yang diinginkan</td>
 	    					<td valign="top">
 	    						<ion-item>
-								    <ion-label fixed></ion-label>
 								    <ion-input [(ngModel)]="harga" *ngIf="harga_view == 1" type="text" value="" placeholder="..."></ion-input>
 
 								    <ion-input [(ngModel)]="harga" disaled *ngIf="harga_view == 0" type="text" value="" placeholder="..."></ion-input>
@@ -140,7 +140,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio value="Tidak ada pengguna internet"></ion-radio>Tidak ada pengguna internet
+	    					<td width="100%"><ion-radio value="Tidak ada pengguna internet"></ion-radio> Tidak ada pengguna internet
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -149,7 +149,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio  value="Tidak diijinkan"></ion-radio>Tidak diijinkan
+	    					<td width="100%"><ion-radio  value="Tidak diijinkan"></ion-radio> Tidak diijinkan
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -158,7 +158,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio value="Tidak tertarik"></ion-radio>Tidak tertarik
+	    					<td width="100%"><ion-radio value="Tidak tertarik"></ion-radio> Tidak tertarik
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -176,13 +176,34 @@
 			<td><div align="center">Mitra</div></td>
 		</tr>
 		<tr>
-			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
-			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-color: grey; border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-color: grey;border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
 			
 		</tr>
 	</table>
-    <button block ion-button color="danger" (click)="actionPut()" right>Submit</button>
+	<br/>
+	<br/>
+	<br/>
+    <table width="100%">
+		<tr>
+			<td>
+				<div align="left" style="margin-left: -15px">
+				  <br/>
+				  <button ion-button   (click)="actionBack()" right>&nbsp;< Back&nbsp;</button>
+				</div>
+			</td>
+			<td width="40%">
+				&nbsp;
+			</td>
+			<td>
+				<div align="right" style="margin-right: -10px">
+				  <br/>
+				  <button ion-button  (click)="actionPut()" right>Submit</button>
+				</div>
+			</td>
+		</tr>
+		</table>
 
 					
-			
+</div>
 	</ion-content>

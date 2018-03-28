@@ -30,6 +30,7 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { UriProvider } from '../providers/uri/uri';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     FileChooser,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UriProvider
   ]
 })
 export class AppModule {}

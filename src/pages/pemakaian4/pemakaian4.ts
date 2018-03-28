@@ -3,7 +3,11 @@ import { IonicPage, NavController, NavParams,ModalController,ViewController } fr
 import {SignaturePage} from '../signature/signature'
 import { Storage } from '@ionic/storage';
 import { Http,Headers,RequestOptions } from '@angular/http';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import 'rxjs/add/operator/map';
+import { ListWoPage } from '../list-wo/list-wo';
+import { UriProvider  } from '../../providers/uri/uri';
+import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the Pemakaian4Page page.
  *
@@ -29,13 +33,41 @@ export class Pemakaian4Page {
   data: any;
   data2: any;
   data3: any;
+  uri_api_alista: any;
+  uri_app_amalia: any;
+  uri_api_wimata: any;
+  nik: any;
+
+  nama_signature: any;
 
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
    private storage: Storage,
+    public TransferObject: FileTransferObject,
+    private transfer: FileTransfer,
    public http: Http,
+   public alertCtrl: AlertController,
+    public uri: UriProvider,
     public modalController:ModalController,
     public viewCtrl: ViewController) {
+    this.nik = "95130650";
+    var date = new Date();
+
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    var millisecond = date.getMilliseconds();
+
+    this.nama_signature = year+""+month+""+day+""+hours+""+minutes+""+seconds+""+millisecond+""+this.nik;
+    console.log(this.nama_signature);
+
+
+    this.uri_api_alista = this.uri.uri_api_alista;
+    this.uri_app_amalia = this.uri.uri_app_amalia;
+    this.uri_api_wimata = this.uri.uri_api_wimata;
         // this.signatureImage1 = navParams.get('signatureImage');;
         // console.log(this.signatureImage1);
       this.storage.get('data').then((val) => {
@@ -91,19 +123,73 @@ export class Pemakaian4Page {
 		}
   }
 
-
   actionPut(){   
-    var js = JSON.stringify(this.data);
-    var js2 = JSON.stringify(this.data2);
-    var js3 = JSON.stringify(this.data3);
+    console.log("test : "+this.signatureImage1);
+    this.upload(this.nama_signature+"_1.png",this.signatureImage1);
+    this.upload(this.nama_signature+"_2.png",this.signatureImage2);
 
-    var ini = "http://10.40.108.153/api_test/amalia/amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3;
-    console.log(ini);   
-    this.http.get(ini)
-      .map(res => res.json())
-      .subscribe(data => {
-        console.log(data[0]);
-      },error =>{});
+    if(this.signatureImage1 == undefined){
+        this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
+    }else if(this.signatureImage2 == undefined){
+        this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
+    }else{
+      var data4 = {
+        kendala:this.kendala,
+        alasan_decline:this.alasan_decline,
+        harga:this.harga,
+        harga_view:this.harga_view,
+        menggunakan_isp_view:this.menggunakan_isp_view
+      }
+    
+      var js = JSON.stringify(this.data);
+      var js2 = JSON.stringify(this.data2);
+      var js3 = JSON.stringify(this.data3);
+      var js4 = JSON.stringify(data4);
+      
+      var ini = "http://10.40.108.153/api_test/amalia/amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
+      console.log(ini);   
+      this.http.get(ini)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data[0]);
+        },error =>{});
+    }
+
+
+  }
+
+  upload(nama,path){
+    console.log("test");
+      var options = {
+        fileKey: "file",
+        fileName: nama,
+        chunkedMode: false,
+        mimeType: "multipart/form-data",
+        params : {'fileName': nama}
+      };
+     
+      var url = this.uri_app_amalia+"uploads.php";
+      console.log(url);
+      const fileTransfer: FileTransferObject = this.transfer.create();
+    
+     
+      //Use the FileTransfer to upload the image
+      fileTransfer.upload(path, url, options).then(data => {
+        console.log("berhasil berhasil uye :"+JSON.stringify(data));
+      }, err => {
+
+        console.log("ddd");
+        console.log(err);
+      });
+  }
+
+  showAlert(x){
+    let alert = this.alertCtrl.create({
+      title: 'Alert',
+      subTitle: x,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

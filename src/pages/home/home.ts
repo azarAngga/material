@@ -19,7 +19,7 @@ import { LoadingController } from 'ionic-angular';
 import { CreateWoPage } from '../create-wo/create-wo';
 import { LoginPage } from '../login/login';
 import { ListWoPage } from '../list-wo/list-wo';
-
+import { UriProvider  } from '../../providers/uri/uri'
 declare var cordova: any;
 
 @Component({
@@ -46,6 +46,10 @@ export class HomePage {
   loader: any;
   data_wo: Array<{id_barang: string,stok: string,satuan: string}>;
   count_wo: any;
+  uri_api_alista: any;
+  uri_app_amalia: any;
+  uri_api_wimata: any;
+
 	constructor(
   private file: File,
   public platform: Platform,
@@ -60,13 +64,21 @@ export class HomePage {
   public TransferObject: FileTransferObject,
   private transfer: FileTransfer,
   private device: Device,
+  public uri: UriProvider,  
 	public alertCtrl: AlertController)
 	{
+
     this.pages = [];
     this.number_index = 0;
     this.path = "-";
     this.nama_file = "-";
     this.platform_device = device.platform;
+
+    // URI
+    this.uri_api_alista = this.uri.uri_api_alista;
+    this.uri_app_amalia = this.uri.uri_app_amalia;
+    this.uri_api_wimata = this.uri.uri_api_wimata;
+
     //this.platform_device = 'iOS';
     //this.showAlertNews(device.platform);
     storage.get('nik').then((val) => {
@@ -83,7 +95,7 @@ export class HomePage {
 
       //this.http.get('http://180.250.124.181/API/alista/ios/get_data_team_leader.php?nik='+nik)
       //this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_team_leader.php?nik='+nik)
-      this.http.get('http://10.2004.200.8/API/alista/ios/get_data_team_leader.php?nik='+nik)
+      this.http.get(this.uri_api_alista+'ios/get_data_team_leader.php?nik='+nik)
       .map(res => res.json())
       .subscribe(data => {
         try{
@@ -176,7 +188,7 @@ export class HomePage {
   	console.log("ini_parmeter "+wo);
 
   	//execute url post
-    this.http.post('http://10.204.200.8/API/alista/ios/put_data_pemakaian.php',wo,requestOptions)
+    this.http.post(this.uri_api_alista+'ios/put_data_pemakaian.php',wo,requestOptions)
     //this.http.post('http://10.40.108.153/api_test/alista/ios/put_data_pemakaian.php',wo,requestOptions)
   	//this.http.post('http://api.telkomakses.co.id/API/alista/ios/put_data_pemakaian2.php',wo,requestOptions)
   	.map(res => res.json())
@@ -272,7 +284,7 @@ export class HomePage {
 	  	//let wo = 'nik=97150427';
 	  	
 	  	//execute url post
-      this.http.post('http://10.204.200.8/API/alista/get_data_list_material.php',wo,requestOptions)
+      this.http.post(this.uri_api_alista+'get_data_list_material.php',wo,requestOptions)
 	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
 	  	.map(res => res.json())
 	  	.subscribe(data => {
@@ -287,7 +299,7 @@ export class HomePage {
 
     checkUpdate(){
       //this.http.get('http://10.40.108.153/api_test/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
-      this.http.get('http://10.204.200.8/API/ios/news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
+      this.http.get(this.uri_app_amalia+'news_amalia.php?versi='+this.versi).map(res => res.json()).subscribe(data => {
           var versi_now = data.update[0].versi;
           var trigger = data.update[0].trigger;
           var message = data.update[0].message;
@@ -326,7 +338,7 @@ export class HomePage {
       // TODO: Encode the values using encodeURIComponent().
       let body = 'nik='+this.nik;
       console.log('nikName',this.nik);
-      this.http.post('http://10.204.200.8/API/wimata/ws_get_data_all_or_one.php',body,options)
+      this.http.post(this.uri_api_wimata+'ws_get_data_all_or_one.php',body,options)
       .map(res =>res.json())
       .subscribe(data =>{
         console.log("dari api",data);
@@ -385,6 +397,7 @@ export class HomePage {
                 this.nama_file = nama_ori[index_path-1];
               }else{
                 this.path = "-";
+                this.nama_file = "-";
                 this.showPromptApp("File yang di perbolehkan {.jpg, .jpeg, .png, .PNG, .JPG, .JPEG, .pdf, .PDF}");
               }
               
@@ -404,7 +417,7 @@ export class HomePage {
         params : {'fileName': nama}
       };
      
-      var url = "http://10.204.200.8/API/amalia/uploads.php";
+      var url = this.uri_app_amalia+"uploads.php";
       const fileTransfer: FileTransferObject = this.transfer.create();
     
      

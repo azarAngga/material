@@ -39,7 +39,7 @@ export class MyApp {
         this.nama    = nama;
         this.jabatan = jabatan; 
         this.foto    = foto; 
-
+        
         if(this.foto == null){
             this.foto = "";
         }

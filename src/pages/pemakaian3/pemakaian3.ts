@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Pemakaian4Page} from'../pemakaian4/pemakaian4';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the Pemakaian3Page page.
@@ -27,15 +27,15 @@ export class Pemakaian3Page {
  	mac_address: any;
 
  	nama: any;
- 	notel_teknsi: any;
- 	psb: any= '1P';
- 	migrasi: any = 'infrastruktur';
- 	speed: any ='10MB';
+ 	notel_teknisi: any;
+ 	psb: any= '1';
+ 	migrasi: any = '1';
+ 	speed: any ='10';
 
  	other: any;
  	other_view: any = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,private barcodeScanner: BarcodeScanner) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,private barcodeScanner: BarcodeScanner,public alertCtrl: AlertController) {
     
   }
 
@@ -63,23 +63,40 @@ export class Pemakaian3Page {
   }
 
   actionNext(){
-  	var data3 = {
-  		sn_ont:this.sn_ont,
-  		sn_modem:this.sn_modem,
-  		modem:this.modem,
-  		power:this.power,
-  		dsl:this.dsl,
-  		internet:this.internet,
-  		mac_address:this.mac_address,
-  		nama:this.nama,
-  		notel_teknsi:this.notel_teknsi,
-  		psb:this.psb,
-  		migrasi:this.migrasi,
-  		speed:this.speed,
-  		other:this.other
-  	}
-  		this.storage.set('data3',data3);
-  		this.navCtrl.push(Pemakaian4Page);
+
+    if(this.sn_ont == undefined){
+      this.showAlert("SN ONT tidak boleh kosong");
+    }else if(this.sn_modem == undefined){
+      this.showAlert("Modem tidak boleh kosong");
+    }else if(this.modem == undefined){
+      this.showAlert("Modem tidak boleh kosong");
+    }else if(this.mac_address == undefined){
+      this.showAlert("Mac Address STB tidak boleh kosong");
+    }else if(this.nama == undefined){
+      this.showAlert("Nama Teknisi tidak boleh kosong");
+    }else if(this.notel_teknisi == undefined){
+      this.showAlert("Notel Teknisi tidak boleh kosong");
+    }else if(this.psb  == undefined){
+      this.showAlert("PSB tidak boleh kosong");
+    }else{
+        var data3 = {
+            sn_ont:this.sn_ont,
+            sn_modem:this.sn_modem,
+            modem:this.modem,
+            power:this.power,
+            dsl:this.dsl,
+            internet:this.internet,
+            mac_address:this.mac_address,
+            nama:this.nama,
+            notel_teknisi:this.notel_teknisi,
+            psb:this.psb,
+            migrasi:this.migrasi,
+            speed:this.speed,
+            other_speed:this.other
+          }
+            this.storage.set('data3',data3);
+            this.navCtrl.push(Pemakaian4Page);
+    }
   }
 
   actionBack(){
@@ -92,6 +109,15 @@ export class Pemakaian3Page {
   	}else{
   		this.other_view = 0;
   	}
+  }
+
+  showAlert(x){
+    let alert = this.alertCtrl.create({
+      title: 'Alert',
+      subTitle: x,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

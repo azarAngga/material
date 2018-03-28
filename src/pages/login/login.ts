@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import { Events } from 'ionic-angular';
 import { ListWoPage } from '../list-wo/list-wo';
+import { UriProvider  } from '../../providers/uri/uri';
 
 @Component({
   selector: 'page-login',
@@ -16,6 +17,7 @@ import { ListWoPage } from '../list-wo/list-wo';
 export class LoginPage {
   username: any;
   password: any;
+  uri_api_amalia: any;
   items: any;
   rootPage: any = LoginPage;
   loader: any;
@@ -26,9 +28,10 @@ export class LoginPage {
   public alertCtrl: AlertController,
   public loadingCtrl: LoadingController,
   public storage: Storage,
+  public uri: UriProvider,
   public events: Events) 
   {
-
+    this.uri_api_amalia = this.uri.uri_api_amalia;
     this.setData("nok");
     this.pages = [];
     this.events.publish('menu:tampil', this.pages);
@@ -44,7 +47,7 @@ export class LoginPage {
         this.presentLoading();
         //console.log('http://10.40.108.153/api_test/amalia/login.php?username='+this.username+'&password='+this.password);
         //this.http.get('http://apps.telkomakses.co.id/hana/ios/get_data_hana_login_default.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
-        this.http.get('http://10.204.200.8/API/amalia/get_data_hana_login_default.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
+        this.http.get(this.uri_api_amalia+'get_data_hana_login_default.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
         //this.http.get('http://10.40.108.153/api_test/amalia/login.php?username='+this.username+'&password='+this.password).map(res => res.json()).subscribe(data => {
          this.items = data;
          console.log(this.items);
@@ -57,8 +60,8 @@ export class LoginPage {
             this.setData("oke");
 
 
-            //this.setNik(this.username); 
-            this.setNik('95130650');
+            this.setNik(this.username); 
+            //this.setNik('17930960');
 
 
             this.navCtrl.setRoot(HomePage);

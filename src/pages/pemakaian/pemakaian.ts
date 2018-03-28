@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { MitraPage } from '../mitra/mitra';
 import * as $ from 'jquery';
+import { AlertController } from 'ionic-angular';	
 declare var $: $;
 import { Storage } from '@ionic/storage';
 import { Pemakaian2Page }from '../pemakaian2/pemakaian2';
@@ -31,11 +32,15 @@ export class PemakaianPage {
 	no_telepon: any ;
 	no_inet: any ;
 	nama_pelanggan: any ;
+	menu: any  = "order";
 
 	hk: any ;
 	dp: any ;
 	klem_primer: any ;
 	klem_sec: any  ;
+
+	tanggal_mulai: any;
+	tanggal_selesai: any;
 
 	panjang_drop_core: any ;
 	drop_core: any ;
@@ -50,15 +55,16 @@ export class PemakaianPage {
 	no_row: any = 0;
 	data_material: any;
 
+
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
+   public alertCtrl: AlertController,
    public modalCtrl: ModalController,
    public http: Http,
    private storage: Storage
    ) {
-   	console.log("ddd");
-   	  //this.tanggal_mulai 	 = new Date().toISOString();
-	  //this.tanggal_selesai = new Date().toISOString();
+   	  this.tanggal_mulai 	 = new Date().toISOString();
+	  this.tanggal_selesai = new Date().toISOString();
       var date1 = new Date();
       var date2 = new Date();
 
@@ -66,7 +72,8 @@ export class PemakaianPage {
 	    console.log('con', val);
 	  });
 
-      this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
+      //this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
+       this.start_date = "jan-01-2018";
       this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       
       this.actionGetMaterial();
@@ -111,11 +118,12 @@ export class PemakaianPage {
  	newElement(){
  		this.no_row = this.no_row+1;
  		var no = this.no_row;
- 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><input placeholder="ID Barang" type="text" id="id_barang'+no+'" class="classInput"/></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td><td width="20%"><input type="text" placeholder="satuan" id="satuan'+no+'" class="classInput"/></td></tr></table></div>');
+ 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><input placeholder="ID Barang" type="text" id="id_barang'+no+'" class="classInput"/></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td><td width="20%"></td></tr></table></div>');
  	}
 
  	removeElememt(){
  		var no = this.no_row;
+ 		//alert(x);
  		$('#el'+no).remove();
  		this.no_row = this.no_row-1;
  		if(this.no_row < 0){
@@ -124,41 +132,73 @@ export class PemakaianPage {
  	}
 
  	ngAfterViewInit(){
- 		//$('#parent').append('dfddf');
+ 		
  	}
 
+
+
  	actionNext(){
+
  		var no = 1;
  		var id_barang = [];
  		var volume = [];
  		var satuan = [];
- 		while(no <= this.no_row){
- 			var id_barang_ = $('#id_barang'+no).val();
- 			var volume_ = $('#volume'+no).val();
- 			var satuan_ = $('#satuan'+no).val();
- 			id_barang.push(id_barang_);
- 			volume.push(volume_);
- 			satuan.push(satuan_);
- 			no++;
- 		}
 
-		var data = {
-			'nama_mitra':this.nama_mitra,
-			'sto':this.sto,
-			'no_permintaan':this.no_permintaan ,
-			'no_telepon':this.no_telepon ,
-			'no_inet':this.no_inet ,
-			'start_date':this.start_date ,
-			'end_date':this.end_date ,
-			'nama_pelanggan':this.nama_pelanggan ,
-			'hk':this.hk ,
-			'dp':this.dp ,
-			'klem_primer':this.klem_primer ,
-			'klem_sec':this.klem_sec ,
-			'other': {'id_barang':id_barang,'volume':volume,'satuan':satuan} ,
-		};
-		this.storage.set('data',data);
- 		this.navCtrl.push(Pemakaian2Page);
+ 		if(this.no_wo == undefined){
+ 			this.showAlert("No WO Tidak boleh kosong");
+ 		}else if(this.sto == undefined){
+ 			this.showAlert("STO Tidak boleh kosong");
+ 		}else if(this.no_permintaan == undefined){
+ 			this.showAlert("No Permintaan Tidak boleh kosong");
+ 		}else if(this.no_telepon == undefined){
+ 			this.showAlert("No Telepon Tidak boleh kosong");
+ 		}else if(this.no_inet == undefined){
+ 			this.showAlert("No Inet Tidak boleh kosong");
+ 		}else if(this.start_date == undefined){
+ 			this.showAlert("Start Date Tidak boleh kosong");
+ 		}else if(this.end_date == undefined){
+ 			this.showAlert("End Date Tidak boleh kosong");
+ 		}else if(this.nama_pelanggan == undefined){
+ 			this.showAlert("Nama Pelanggan Tidak boleh kosong");
+ 		}else if(this.hk == undefined){
+ 			this.showAlert("HK/MSAN/ODC Tidak boleh kosong");
+ 		}else if(this.dp == undefined){
+ 			this.showAlert("DP/ODP Tidak boleh kosong");
+ 		}else if(this.klem_primer == undefined){
+ 			this.showAlert("Klem Primer/Feeder Tidak boleh kosong");
+ 		}else if(this.klem_sec == undefined){
+ 			this.showAlert("Klem Sec/Distribusi Tidak boleh kosong");
+ 		}else{
+ 			
+ 			while(no <= this.no_row){
+	 			var id_barang_ = $('#id_barang'+no).val();
+	 			var volume_ = $('#volume'+no).val();
+	 			var satuan_ = $('#satuan'+no).val();
+	 			id_barang.push(id_barang_);
+	 			volume.push(volume_);
+	 			satuan.push(satuan_);
+	 			no++;
+	 		}
+
+	 		var data = {
+				'nama_mitra':this.nama_mitra,
+				'no_wo':this.no_wo,
+				'sto':this.sto,
+				'no_permintaan':this.no_permintaan ,
+				'no_telepon':this.no_telepon ,
+				'no_inet':this.no_inet ,
+				'start_date':this.start_date ,
+				'end_date':this.end_date ,
+				'nama_pelanggan':this.nama_pelanggan ,
+				'hk':this.hk ,
+				'dp':this.dp ,
+				'klem_primer':this.klem_primer ,
+				'klem_sec':this.klem_sec ,
+				'other': {'id_barang':id_barang,'volume':volume,'satuan':satuan} ,
+			};
+			this.storage.set('data',data);
+	 		this.navCtrl.push(Pemakaian2Page);
+ 		}
  	}
 
  	actionGetMaterial(){      
@@ -169,6 +209,15 @@ export class PemakaianPage {
       	this.data_material = data;
       },error =>{});
  	}
+
+ 	showAlert(x){
+      let alert = this.alertCtrl.create({
+        title: 'Alert',
+        subTitle: x,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
  	// set a key/value
 	// storage.set('name', 'Max');
