@@ -149,8 +149,9 @@
       <ion-label stacked><font color="black">Jumlah Tiang Telepon</font></ion-label>
       <ion-input placeholder="Type something" [(ngModel)]="jumlah_tiang_telepo " style="color:grey"  ></ion-input>
     </ion-item>
-
+      <br/>
       <div>
+
     <table>
       <tr>
         <td >
@@ -160,13 +161,17 @@
             <table>
               <tr>
                 <td>
-                    <button ion-button icon-only (click)="newElement()">
-                      <ion-icon name="add"></ion-icon>Item Lain &nbsp;
+                    <button class="button" (click)="newElement()">
+                      <ion-icon name="add"></ion-icon> Item Lain &nbsp;
                     </button>
                 </td>
                 <td>
-                    <button *ngIf="no_row != 0" ion-button icon-only (click)="removeElememt()">
-                      <ion-icon name="md-remove"></ion-icon>
+                  &nbsp;
+                  &nbsp;
+                </td>
+                <td>
+                    <button class="button" *ngIf="no_row != 0" (click)="removeElememt()">
+                      &nbsp;&nbsp;<ion-icon name="md-remove"></ion-icon>&nbsp;&nbsp;
                     </button>
                 </td>
               </tr>
@@ -175,6 +180,7 @@
         </td>
       </tr>
     </table>
+
       <div  id="parent"></div>
       <!-- <div class="border"  >
           <div *ngFor="let item of data_material" id="el"><table><tr><td width="40%"><input disabled placeholder="ID Barang" type="text" value="{{item.id_barang}}" class="classInput"/></td><td width="20%"><input type="text" value="{{item.jml_pemakaian}}" disabled placeholder="volume" id="volume" class="classInput"/></td><td  width="20%"><input value="{{item.satuan}}" type="text" disabled placeholder="satuan" id="satuan" class="classInput"/></td></tr></table></div>
@@ -196,34 +202,42 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-  <table width="100%">
-    <tr>
-      <td width="50%"><div align="center">Designator</div></td>
-      <td width="40%" colspan="2"><div align="center">Jumlah</div></td>
-    </tr>
-    <tr>
-      <td width="40%">
-        <div align="center">
-          <select width="10">
-              <option>set</option>
-              <option>set</option>
-              <option>set</option>
-          </select>
-        </div>
-      <td>
-      <td width="40%"> 
-        <div align="center"><input  width="5" type="number" name="jumlah" style="border-width: 1px;" /></div>
-      <td>
-        <td width="20%"> 
-          <td style="padding: 10px"><button style="background: #B22222   ;border-radius: 50%"><font size="5" color="white">-</font></button></td>
-          <td> <button style="background: MediumSeaGreen;border-radius: 5px"><font size="5" color="white">+</font></button> </td>
-      <td>
-    </tr>
-   
-  </table>
+
+
+    <table>
+      <tr>
+        <td >
+        </td>
+        <td width="10%" align="right">
+          <div align="right">
+            <table>
+              <tr>
+                <td>
+                    <button class="button" (click)="newElementDsg()">
+                      <font size="2"><ion-icon name="add"></ion-icon> Designator Lain &nbsp;</font>
+                    </button>
+                </td>
+                <td>
+                  &nbsp;
+                  &nbsp;
+                </td>
+                <td>
+                    <button class="button" *ngIf="no_row_dsg != 0" (click)="removeElememtDsg()">
+                      &nbsp;&nbsp;<ion-icon name="md-remove"></ion-icon>&nbsp;&nbsp;
+                    </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <br/>
+
+    <div id="parentDsg"></div>
 
 <div align="right">
-  <button ion-button (click)="actionNext()" right>Next ></button>
+  <button class="button" (click)="actionNext()" right>Next ></button>
 </div>
 
 </ion-content>

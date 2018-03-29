@@ -25,7 +25,7 @@ export class Pemakaian3Page {
  	dsl: any;
  	internet: any;
  	mac_address: any;
-
+  speed_other: any;
  	nama: any;
  	notel_teknisi: any;
  	psb: any= '1';
@@ -92,7 +92,7 @@ export class Pemakaian3Page {
             psb:this.psb,
             migrasi:this.migrasi,
             speed:this.speed,
-            other_speed:this.other
+            other_speed:this.speed_other
           }
             this.storage.set('data3',data3);
             this.navCtrl.push(Pemakaian4Page);

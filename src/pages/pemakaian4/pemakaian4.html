@@ -18,7 +18,7 @@
 	<div align="center">
 		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
 	</div>
-	<ion-card>
+	<ion-card >
 	  <ion-card-header>
 	    <font color="red">Disclaimer</font>
 	  </ion-card-header>
@@ -42,42 +42,42 @@
 	    <table style="margin-left: px;margin-right: -10px" width="100%">
 	    	<tr>
 	    		<td width="50%">
-		    		<ion-radio  value="Alamat Tidak Jelas"></ion-radio> Alamat Tidak Jelas
+		    		<ion-radio  value="1"></ion-radio> Alamat Tidak Jelas
 		    	</td>
 		    	<td>
-		    		<div style="margin-right: -100px"><ion-radio  value="Nama CP belum sesuai"></ion-radio> Nama CP belum sesuai</div>
+		    		<div style="margin-right: -100px"><ion-radio  value="2"></ion-radio> Nama CP belum sesuai</div>
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Bangunan direhab"></ion-radio> Bangunan direhab
+		    		<ion-radio  value="3"></ion-radio> Bangunan direhab
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Kendala IKR/G"></ion-radio> Kendala IKR/G
+		    		<ion-radio  value="4"></ion-radio> Kendala IKR/G
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Penghuni tidak ada"></ion-radio> Penghuni tidak ada
+		    		<ion-radio  value="5"></ion-radio> Penghuni tidak ada
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Modem rusak"></ion-radio> Modem rusak
+		    		<ion-radio  value="6"></ion-radio> Modem rusak
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Primer kritis/habis"></ion-radio> Primer kritis/habis
+		    		<ion-radio  value="7"></ion-radio> Primer kritis/habis
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Perangkat belum siap"></ion-radio> Perangkat belum siap
+		    		<ion-radio  value="8"></ion-radio> Perangkat belum siap
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="Sekunder kritis/habis"></ion-radio> Sekunder kritis/habis
+		    		<ion-radio  value="9"></ion-radio> Sekunder kritis/habis
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="Port multimedia habis"></ion-radio> Port multimedia habis
+		    		<ion-radio  value="10"></ion-radio> Port multimedia habis
 		    	</td>
 	    	</tr>
 	    </table>
@@ -92,20 +92,20 @@
 	  </ion-card-header>
 
 	  <ion-card-content>
-	  	<ion-list radio-group [(ngModel)]="alasan_decline" (ionChange)="actionChangeAlasanDecline($event)">
+	  	<ion-list radio-group [(ngModel)]="alasan_decline" >
 	    <table width="100%">
 	    	<tr>
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="50%"><ion-radio checked="true" value="menggunakan ISP"></ion-radio> menggunakan ISP</td>
-	    					<td>
-	    						<ion-item>
-								    
-								    <ion-input *ngIf="menggunakan_isp_view == 1" type="text" [(ngModel)]="menggunakan_isp" value="" placeholder="..."></ion-input>
-
-								    <ion-input *ngIf="menggunakan_isp_view == 0" type="text" [(ngModel)]="menggunakan_isp" disabled value="" placeholder="..."></ion-input>
-								  </ion-item>
+	    					<td width="50%"><ion-radio value="1"></ion-radio> menggunakan ISP</td>
+	    					<td *ngIf="alasan_decline==1">
+								     <input  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="type something"/>  
+								     <div style="margin-top: -7px"><hr  /></div>
+	    					</td>
+	    					<td *ngIf="alasan_decline!=1">
+								     <input disabled=""  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="type something"/>  
+								     <div style="margin-top: -7px"><hr  /></div>
 	    					</td>
 	    				</tr>
 	    			</table>
@@ -115,7 +115,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio  value="Tidak punya PC/Notebook.Gadget"></ion-radio> Tidak punya PC/Notebook.Gadget
+	    					<td width="100%"><ion-radio  value="2"></ion-radio> Tidak punya PC/Notebook.Gadget
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -124,13 +124,16 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="50%"><ion-radio  value="Harga yang diinginkan" placeholder="Username"></ion-radio> Harga yang diinginkan</td>
-	    					<td valign="top">
-	    						<ion-item>
-								    <ion-input [(ngModel)]="harga" *ngIf="harga_view == 1" type="text" value="" placeholder="..."></ion-input>
-
-								    <ion-input [(ngModel)]="harga" disaled *ngIf="harga_view == 0" type="text" value="" placeholder="..."></ion-input>
-								  </ion-item>
+	    					<td width="50%"><ion-radio value="3"></ion-radio> Harga yang di inginkan</td>
+	    					<td *ngIf="alasan_decline==3">
+								     <input width="10" type="text" [(ngModel)]="harga_view" value=""  placeholder="type something"/>  
+								     <div style="margin-top: -7px"><hr  /></div>
+								     <br/>
+	    					</td>
+	    					<td *ngIf="alasan_decline!=3">
+								     <input disabled=""  type="text" [(ngModel)]="harga_view" value=""  placeholder="type something"/>  
+								     <div style="margin-top: -7px"><hr  /></div>
+								     <br/>
 	    					</td>
 	    				</tr>
 	    			</table>
@@ -140,7 +143,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio value="Tidak ada pengguna internet"></ion-radio> Tidak ada pengguna internet
+	    					<td width="100%"><ion-radio value="4"></ion-radio> Tidak ada pengguna internet
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -149,7 +152,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio  value="Tidak diijinkan"></ion-radio> Tidak diijinkan
+	    					<td width="100%"><ion-radio  value="5"></ion-radio> Tidak di izinkan
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -158,7 +161,7 @@
 	    		<td >
 	    			<table>
 	    				<tr>
-	    					<td width="100%"><ion-radio value="Tidak tertarik"></ion-radio> Tidak tertarik
+	    					<td width="100%"><ion-radio value="6"></ion-radio> Tidak tertarik
 	    				</tr>
 	    			</table>
 		    	</td>
@@ -178,7 +181,6 @@
 		<tr>
 			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-color: grey; border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
 			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-color: grey;border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
-			
 		</tr>
 	</table>
 	<br/>
@@ -189,7 +191,7 @@
 			<td>
 				<div align="left" style="margin-left: -15px">
 				  <br/>
-				  <button ion-button   (click)="actionBack()" right>&nbsp;< Back&nbsp;</button>
+				  <button class="button" (click)="actionBack()" right>&nbsp;< Back&nbsp;</button>
 				</div>
 			</td>
 			<td width="40%">
@@ -198,7 +200,7 @@
 			<td>
 				<div align="right" style="margin-right: -10px">
 				  <br/>
-				  <button ion-button  (click)="actionPut()" right>Submit</button>
+				  <button class="button" (click)="actionPut()" right>Submit</button>
 				</div>
 			</td>
 		</tr>

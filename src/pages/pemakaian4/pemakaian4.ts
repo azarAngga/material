@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { ListWoPage } from '../list-wo/list-wo';
 import { UriProvider  } from '../../providers/uri/uri';
 import { AlertController } from 'ionic-angular';
+
 /**
  * Generated class for the Pemakaian4Page page.
  *
@@ -22,11 +23,11 @@ import { AlertController } from 'ionic-angular';
 })
 export class Pemakaian4Page {
 
-  kendala: any = 'Alamat Tidak Jelas';
-  alasan_decline: any ='menggunakan ISP';
+  kendala: any = '1';
+  alasan_decline: any ='1';
   harga: any ;
-  harga_view: any = 0;
-  menggunakan_isp_view: any = 0;
+  harga_view: any;
+  menggunakan_isp_view: any;
   public signatureImage1 : any;
   public signatureImage2 : any;
   signatureImage: any;
@@ -111,51 +112,29 @@ export class Pemakaian4Page {
       modal2.present();
   }
 
-  actionChangeAlasanDecline(x){
-		if(x == 'Harga yang diinginkan'){
-			this.harga_view = 1;
-		}else if(x =='menggunakan ISP'){
-			this.menggunakan_isp_view = 1;
-			this.harga_view = 0;
-		}else{
-			this.menggunakan_isp_view = 0;
-			this.harga_view = 0;
-		}
+  actionChangeAlasanDecline(){
+		// if(x == 'Harga yang diinginkan'){
+		// 	this.harga_view = 1;
+		// }else if(x =='menggunakan ISP'){
+		// 	this.menggunakan_isp_view = 1;
+		// 	this.harga_view = 0;
+		// }else{
+		// 	this.menggunakan_isp_view = 0;
+		// 	this.harga_view = 0;
+		// }
   }
 
   actionPut(){   
-    console.log("test : "+this.signatureImage1);
-    this.upload(this.nama_signature+"_1.png",this.signatureImage1);
-    this.upload(this.nama_signature+"_2.png",this.signatureImage2);
-
     if(this.signatureImage1 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else if(this.signatureImage2 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else{
-      var data4 = {
-        kendala:this.kendala,
-        alasan_decline:this.alasan_decline,
-        harga:this.harga,
-        harga_view:this.harga_view,
-        menggunakan_isp_view:this.menggunakan_isp_view
-      }
-    
-      var js = JSON.stringify(this.data);
-      var js2 = JSON.stringify(this.data2);
-      var js3 = JSON.stringify(this.data3);
-      var js4 = JSON.stringify(data4);
-      
-      var ini = "http://10.40.108.153/api_test/amalia/amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
-      console.log(ini);   
-      this.http.get(ini)
-        .map(res => res.json())
-        .subscribe(data => {
-          console.log(data[0]);
-        },error =>{});
+      console.log("test : "+this.signatureImage1);
+      this.upload(this.nama_signature+"_1.png",this.signatureImage1);
+      this.upload(this.nama_signature+"_2.png",this.signatureImage2);
+      this.showConfirm();
     }
-
-
   }
 
   upload(nama,path){
@@ -191,5 +170,55 @@ export class Pemakaian4Page {
     });
     alert.present();
   }
+
+   showConfirm() {
+    let confirm = this.alertCtrl.create({
+      title: 'Input Data',
+      message: 'Apakah anda yakin data yang diinput telah valid? Jika benar Tekan OK',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+        var data4 = {
+          kendala:this.kendala,
+          alasan_decline:this.alasan_decline,
+          harga:this.harga,
+          harga_view:this.harga_view,
+          menggunakan_isp_view:this.menggunakan_isp_view,
+          url_ttd_pelanggan:this.nama_signature+"_1.png",
+          url_ttd_mitra:this.nama_signature+"_2.png",
+        }
+    
+        var js = JSON.stringify(this.data);
+        var js2 = JSON.stringify(this.data2);
+        var js3 = JSON.stringify(this.data3);
+        var js4 = JSON.stringify(data4);
+        
+        var ini = "http://10.40.108.153/api_test/amalia/amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
+        console.log(ini);   
+        this.http.get(ini)
+          .map(res => res.json())
+          .subscribe(data => {
+            console.log(data[0]);
+          },error =>{});
+
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  actionBack(){
+    this.navCtrl.pop();
+  }
+
 
 }

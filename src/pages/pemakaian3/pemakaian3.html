@@ -26,7 +26,7 @@
 
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text" [(ngModel)]="modem" placeholder="..."></ion-input>
+							    <ion-input type="text" [(ngModel)]="modem" placeholder="type something"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</th>
@@ -36,7 +36,7 @@
 						<td>
 							SN ONT
 							<div >
-								<button (click)="actionScanOnt()"  ion-button icon-left>
+								<button (click)="actionScanOnt()"  class="button">
 								  <ion-icon name="md-barcode"></ion-icon> &nbsp; Scan Barcode
 								</button>
 							</div>
@@ -44,7 +44,7 @@
 						<td>
 						<ion-list style="margin-left: 10px">
 						  <ion-item>
-						    <ion-input type="text" [(ngModel)]="sn_ont" placeholder="..."></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_ont" placeholder="type something"></ion-input>
 						  </ion-item>
 						  </ion-list>
 						</td>
@@ -53,7 +53,7 @@
 					<tr>
 						<td>
 							SN MODEM
-								<button (click)="actionModem()"  ion-button icon-left>
+								<button (click)="actionModem()" class="button">
 								  
 								  <ion-icon name="md-barcode"></ion-icon>&nbsp; Scan Barcode
 								</button>
@@ -62,7 +62,7 @@
 						<td>
 						<ion-list style="margin-left: 10px">
 						  <ion-item>
-						    <ion-input type="text" [(ngModel)]="sn_modem" placeholder="..."></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_modem" placeholder="type something"></ion-input>
 						  </ion-item>
 						  </ion-list>
 						</td>
@@ -105,7 +105,7 @@
 						<td colspan="2" >Mac Address STB 
 							<ion-list>
 							  <ion-item>
-							    <ion-input type="text"  [(ngModel)]="mac_address" placeholder="..."></ion-input>
+							    <ion-input type="text"  [(ngModel)]="mac_address" placeholder="type something"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -115,7 +115,7 @@
 						<td width="60%"  >
 							<ion-list>
 							  <ion-item>
-							    <ion-input [(ngModel)]="nama" type="text" placeholder="..."></ion-input>
+							    <ion-input [(ngModel)]="nama" type="text" placeholder="type something"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -125,7 +125,7 @@
 						<td width="60%"  >
 							<ion-list>
 							  <ion-item>
-							    <ion-input [(ngModel)]="notel_teknisi" type="text" placeholder="..."></ion-input>
+							    <ion-input [(ngModel)]="notel_teknisi" type="text" placeholder="type something"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -254,7 +254,7 @@
 			<td>
 				<div align="left">
 				  <br/>
-				  <button ion-button  (click)="actionBack()" right>Back</button>
+				  <button class="button" (click)="actionBack()" right>Back</button>
 				</div>
 			</td>
 			<td width="30%">
@@ -263,7 +263,7 @@
 			<td>
 				<div align="right">
 				  <br/>
-				  <button ion-button  (click)="actionNext()" right>Next</button>
+				  <button class="button"  (click)="actionNext()" right>Next</button>
 				</div>
 			</td>
 		</tr>

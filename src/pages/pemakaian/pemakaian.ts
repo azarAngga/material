@@ -33,6 +33,7 @@ export class PemakaianPage {
 	no_inet: any ;
 	nama_pelanggan: any ;
 	menu: any  = "order";
+	nik: any = '95130809';
 
 	hk: any ;
 	dp: any ;
@@ -53,7 +54,9 @@ export class PemakaianPage {
 	view_nama_mitra: any = 1;
 	perusahaan: any = "telkom akses";
 	no_row: any = 0;
+	no_row_dsg: any = 0;
 	data_material: any;
+	arr_material: any;
 
 
   constructor(public navCtrl: NavController,
@@ -73,7 +76,7 @@ export class PemakaianPage {
 	  });
 
       //this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
-       this.start_date = "jan-01-2018";
+       this.start_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       
       this.actionGetMaterial();
@@ -118,7 +121,35 @@ export class PemakaianPage {
  	newElement(){
  		this.no_row = this.no_row+1;
  		var no = this.no_row;
- 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><input placeholder="ID Barang" type="text" id="id_barang'+no+'" class="classInput"/></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td><td width="20%"></td></tr></table></div>');
+ 		var data = this.arr_material;
+ 		var no_ = 0;
+ 		var str_app = "";
+
+ 		if(data[0]['id_barang'] != "-"){
+      		while(no_ < data.length){
+      			str_app +="<option>"+data[no_]['id_barang']+"</option>";
+	      		no_++;
+	      	}
+      	}
+
+ 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><select id="id_barang'+no+'" >'+str_app+'</select></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td><td width="20%"></td></tr></table></div>');
+ 	}
+
+ 	newElementDsg(){
+ 		var data = this.arr_material;
+ 		var no_ = 0;
+ 		var str_app = "";
+
+ 		if(data[0]['id_barang'] != "-"){
+      		while(no_ < data.length){
+      			str_app +="<option value='"+data[no_]['id_barang']+"'>"+data[no_]['id_barang']+"</option>";
+	      		no_++;
+	      	}
+      	}
+
+ 		this.no_row_dsg = this.no_row_dsg+1;
+ 		var no = this.no_row_dsg;
+ 		$('#parentDsg').append('<div id="dsg'+no+'"><table width="100%"><tr><td width="50%"><div align="center">Designator</div></td><td width="40%" colspan="2"><div align="center">Jumlah</div></td></tr><tr><td width="40%"><div align="center"><select width="10" id="designator'+no+'">'+str_app+'</select></div><td><td width="40%"><div align="center"><input  width="5" type="number" id="jumlah_dsg'+no+'" style="border-width: 1px;" /></div><td><td width="20%"><br/><br/><br/></td><td></tr></table></div>');
  	}
 
  	removeElememt(){
@@ -128,6 +159,15 @@ export class PemakaianPage {
  		this.no_row = this.no_row-1;
  		if(this.no_row < 0){
  			this.no_row = 0;
+ 		}
+ 	}
+
+ 	removeElememtDsg(){
+ 		var no = this.no_row_dsg;
+ 		$('#dsg'+no).remove();
+ 		this.no_row_dsg = this.no_row_dsg-1;
+ 		if(this.no_row_dsg < 0){
+ 			this.no_row_dsg = 0;
  		}
  	}
 
@@ -180,7 +220,24 @@ export class PemakaianPage {
 	 			no++;
 	 		}
 
+	 		no = 1;
+	 		var designator = [];
+	 		var jumlah     = [];
+	 		while(no <= this.no_row_dsg){
+	 			designator.push($('#designator'+no).val());
+	 			jumlah.push($('#jumlah_dsg'+no).val());
+	 			console.log($('#designator'+no).val());
+	 			no++;
+	 		}
+
 	 		var data = {
+	 			'jumlah_tiang_telpn':this.jumlah_tiang_telpn,
+	 			'jumlah_klem_ring':this.jumlah_klem_ring,
+	 			'jumlah_breket':this.jumlah_breket,
+	 			'panjang_pvc':this.panjang_pvc,
+	 			'panjang_utp':this.panjang_utp,
+	 			'panjang_drop_core':this.panjang_drop_core,
+	 			'drop_core':this.drop_core,
 				'nama_mitra':this.nama_mitra,
 				'no_wo':this.no_wo,
 				'sto':this.sto,
@@ -195,18 +252,25 @@ export class PemakaianPage {
 				'klem_primer':this.klem_primer ,
 				'klem_sec':this.klem_sec ,
 				'other': {'id_barang':id_barang,'volume':volume,'satuan':satuan} ,
+				'designator': {'designator':designator,'jumlah':jumlah} ,
 			};
 			this.storage.set('data',data);
 	 		this.navCtrl.push(Pemakaian2Page);
  		}
  	}
 
- 	actionGetMaterial(){      
- 	  this.http.get("http://10.40.108.153/api_test/alista/ios/get_data_material_from_wo.php?no_wo=3434")
+ 	actionGetMaterial(){
+ 	  this.http.get("http://10.40.108.153/api_test/alista/ios/get_data_list_material.php?nik="+this.nik)
       .map(res => res.json())
       .subscribe(data => {
-      	console.log(data[0]);
-      	this.data_material = data;
+      	console.log("data materila :"+data.length);
+      	console.log("data materila :"+JSON.stringify(data));
+      	var no = 0;
+      	var arr_ = [];
+      	this.arr_material = data;
+      	console.log(arr_);
+      	// while(no < data.length){
+      	// }
       },error =>{});
  	}
 
