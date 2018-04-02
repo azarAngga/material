@@ -76,10 +76,10 @@ export class PemakaianPage {
 	  });
 
       //this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
-       this.start_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
+      this.start_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
-      
       this.actionGetMaterial();
+
   }
 
 
@@ -132,7 +132,7 @@ export class PemakaianPage {
 	      	}
       	}
 
- 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><select id="id_barang'+no+'" >'+str_app+'</select></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td><td width="20%"></td></tr></table></div>');
+ 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><select id="id_barang'+no+'" >'+str_app+'</select></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td></tr></table></div>');
  	}
 
  	newElementDsg(){
@@ -268,9 +268,19 @@ export class PemakaianPage {
       	var no = 0;
       	var arr_ = [];
       	this.arr_material = data;
-      	console.log(arr_);
+      	console.log(data[0].id_barang);
+      	while(no <= data.length){
+
+      		if(data[no].id_barang.indexOf("drop core") > -1){
+      			this.drop_core = data[no].id_barang;
+      		}
+      		no++;
+      	}
       	// while(no < data.length){
       	// }
+
+
+
       },error =>{});
  	}
 
