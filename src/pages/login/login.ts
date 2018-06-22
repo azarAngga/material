@@ -10,6 +10,9 @@ import { Events } from 'ionic-angular';
 import { ListWoPage } from '../list-wo/list-wo';
 import { UriProvider  } from '../../providers/uri/uri';
 
+import { PemakaianPage } from '../pemakaian/pemakaian';
+import { BaPage } from '../ba/ba';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -58,11 +61,8 @@ export class LoginPage {
             this.events.publish('menu:tampil', this.pages);
             this.loadMenu();
             this.setData("oke");
-
-
             this.setNik(this.username); 
             //this.setNik('17930960');
-
 
             this.navCtrl.setRoot(HomePage);
             this.loader.dismiss();
@@ -116,6 +116,8 @@ export class LoginPage {
     this.pages = [
         { title: 'Update Material Alista', component: HomePage },
         { title: 'List Stok Barang', component: ListWoPage },
+         { title: 'Create BA Digital', component: PemakaianPage },
+        { title: 'List BA Digital', component: BaPage },
         { title: 'Logout', component: LoginPage }
     ];
   }

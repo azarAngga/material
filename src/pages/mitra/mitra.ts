@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
-import { Http,Headers,RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /**
@@ -28,7 +28,7 @@ export class MitraPage {
   }
 
   loadData(){
-      this.http.get("http://10.40.108.153/api_test/master/get_data_all_master_mitra.php")
+      this.http.get("http://10.204.200.8/API/master/get_data_all_master_mitra.php")
       .map(res => res.json())
       .subscribe(data => {
       	this.nama_mitra = data.data;

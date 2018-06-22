@@ -7,13 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>pemakaian2</ion-title>
+    <ion-title>Halaman ke-4</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 	<div class="text_light">
 	<div align="center">
 		<label><font color="red">LAPORAN PENYELESAIAN PEKERJAAN INSTALASI PASANG BARU/MIGRASI</font></label>
@@ -23,10 +23,11 @@
 	    <font color="red">Disclaimer</font>
 	  </ion-card-header>
 	  <ion-card-content>
-	    	1. Perangkat (ONT/Modem/STB) yang dipasang pelanggan aalah MILIK TELKOM yang dipinjamkan selama menjadi pelanggan TELKOM. Modem yang tidak dipakai karena Migrasi ke Fiber ditarik kembali
+	    	1. Perangkat (ONT/Modem/STB) yang dipasang pelanggan aalah MILIK TELKOM yang dipinjamkan selama menjadi pelanggan TELKOM. Modem yang tidak dipakai karena Migrasi ke Fiber ditarik kembali <br/><br/>
 	    	2.TELKOM dapat mengambil Modem yang tidak dipakai karena Migrasi ke Fiber ditarik kembali
-	    	3.Untuk progress pemiliharaan minitoring, diharapkan power perangkat selalu dalam kondisi hidup (ON)
-	    	4.Disarankan untuk segera merubah password yang ada untuk menjaga agar tidak dipergunakan pihak-pihak yang tidak dikehendaki.
+	    	3.Untuk progress pemiliharaan minitoring, diharapkan power perangkat selalu dalam kondisi hidup (ON)<br/><br/>
+	    	4.Disarankan untuk segera merubah password yang ada untuk menjaga agar tidak dipergunakan pihak-pihak yang tidak dikehendaki.<br/><br/>
+			
 	    	5.pelanggan sudah mendapatkan penjelasan dan sales/setter atau menerima buku petunjuk menggunakan modem internet yang telah dipasang 
 	  </ion-card-content>
 	</ion-card>
@@ -39,13 +40,13 @@
 
 	  <ion-card-content>
 	  	<ion-list radio-group [(ngModel)]="kendala">
-	    <table style="margin-left: px;margin-right: -10px" width="100%">
+	    <table style="" width="100%">
 	    	<tr>
 	    		<td width="50%">
 		    		<ion-radio  value="1"></ion-radio> Alamat Tidak Jelas
 		    	</td>
 		    	<td>
-		    		<div style="margin-right: -100px"><ion-radio  value="2"></ion-radio> Nama CP belum sesuai</div>
+		    		<div ><ion-radio  value="2"></ion-radio> Nama CP belum sesuai</div>
 		    	</td>
 	    	</tr>
 	    	<tr>
@@ -100,11 +101,11 @@
 	    				<tr>
 	    					<td width="50%"><ion-radio value="1"></ion-radio> menggunakan ISP</td>
 	    					<td *ngIf="alasan_decline==1">
-								     <input  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="type something"/>  
+								     <input  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="Tulis sesuatu"/>  
 								     <div style="margin-top: -7px"><hr  /></div>
 	    					</td>
 	    					<td *ngIf="alasan_decline!=1">
-								     <input disabled=""  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="type something"/>  
+								     <input disabled=""  type="text" [(ngModel)]="menggunakan_isp_view" value=""  placeholder="Tulis sesuatu"/>  
 								     <div style="margin-top: -7px"><hr  /></div>
 	    					</td>
 	    				</tr>
@@ -126,12 +127,12 @@
 	    				<tr>
 	    					<td width="50%"><ion-radio value="3"></ion-radio> Harga yang di inginkan</td>
 	    					<td *ngIf="alasan_decline==3">
-								     <input width="10" type="text" [(ngModel)]="harga_view" value=""  placeholder="type something"/>  
+								     <input width="10" type="text" [(ngModel)]="harga_view" value=""  placeholder="Tulis sesuatu"/>  
 								     <div style="margin-top: -7px"><hr  /></div>
 								     <br/>
 	    					</td>
 	    					<td *ngIf="alasan_decline!=3">
-								     <input disabled=""  type="text" [(ngModel)]="harga_view" value=""  placeholder="type something"/>  
+								     <input disabled=""  type="text" [(ngModel)]="harga_view" value=""  placeholder="Tulis sesuatu"/>  
 								     <div style="margin-top: -7px"><hr  /></div>
 								     <br/>
 	    					</td>
@@ -170,7 +171,7 @@
 		</ion-list>
 	  </ion-card-content>
 	</ion-card>
-	<div align="right"> Jakarta, 22-02-2018</div>
+	<div align="right"> Jakarta, {{tanggal_ttd}}</div>
 	<br/>
 	
 	<table width="100%">
@@ -179,8 +180,8 @@
 			<td><div align="center">Mitra</div></td>
 		</tr>
 		<tr>
-			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-color: grey; border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
-			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-color: grey;border-style: dashed;width: 100px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel1()"  style="border-color: grey; border-style: dashed;width: 150px;height: 100px" ><img *ngIf="signatureImage1" style="width: 100px;height: 100px" [src]="signatureImage1" ></div></td>
+			<td align="center"  width="50%"><div (click)="openSignatureModel2()"  style="border-color: grey;border-style: dashed;width: 150px;height: 100px" ><img *ngIf="signatureImage2" style="width: 100px;height: 100px" [src]="signatureImage2" ></div></td>
 		</tr>
 	</table>
 	<br/>

@@ -51,31 +51,31 @@
 
   <ion-item (click)="presentProfileModal()" *ngIf="view_nama_mitra == 2">
      <ion-label stacked><font color="black">Nama Mitra</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu"  disabled [(ngModel)]="nama_mitra" style="color:grey" ></ion-input>
+    <ion-input placeholder="Type something"  disabled [(ngModel)]="nama_mitra" style="color:grey" ></ion-input>
     
   </ion-item>
 
   <ion-item>
     <ion-label stacked><font color="black">No WO</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_wo" style="color:grey"  ></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="no_wo" style="color:grey"  ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked><font color="black">STO</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="sto" style="color:grey"></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="sto" style="color:grey"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked><font color="black">No Permintaan</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_permintaan" style="color:grey"></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="no_permintaan" style="color:grey"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label stacked><font color="black">No Telepon</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_telepon" type="number" style="color:grey"></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="no_telepon" type="number" style="color:grey"></ion-input>
   </ion-item>
    <ion-item>
     <ion-label stacked><font color="black">No Inet</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_inet" type="number" style="color:grey"></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="no_inet" type="number" style="color:grey"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -91,7 +91,7 @@
   
    <ion-item>
     <ion-label stacked><font color="black">Nama Pelanggan</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="nama_pelanggan" style="color:grey"></ion-input>
+    <ion-input placeholder="Type something" [(ngModel)]="nama_pelanggan" style="color:grey"></ion-input>
   </ion-item>
     
     
@@ -101,48 +101,98 @@
     <label ><font size="5" color="red">DATEK</font></label>
        <ion-item>
           <ion-label stacked><font color="black">HK/MSAN/ODC</font></ion-label>
-          <ion-input placeholder="Tulis sesuatu" [(ngModel)]="hk" style="color:grey"></ion-input>
+          <ion-input placeholder="Type something" [(ngModel)]="hk" style="color:grey"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked><font color="black">DP/ODP</font></ion-label>
-          <ion-input placeholder="Tulis sesuatu" [(ngModel)]="dp" style="color:grey"></ion-input>
+          <ion-input placeholder="Type something" [(ngModel)]="dp" style="color:grey"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked><font color="black">Klem Primer/Feeder</font></ion-label>
-          <ion-input placeholder="Tulis sesuatu" [(ngModel)]="klem_primer" style="color:grey"></ion-input>
+          <ion-input placeholder="Type something" [(ngModel)]="klem_primer" style="color:grey"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label stacked><font color="black">Klem Sec/Distribusi</font></ion-label>
-          <ion-input placeholder="Tulis sesuatu" [(ngModel)]="klem_sec" style="color:grey"></ion-input>
+          <ion-input placeholder="Type something" [(ngModel)]="klem_sec" style="color:grey"></ion-input>
         </ion-item>
     
   </div>
   <div *ngSwitchCase="'material'">
- 
-  <ion-item-group *ngFor="let row of data_wo; let i =index">
-    <ion-item-divider color="light" text-wrap> ID Barang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  <b>{{row.id_barang}}</b>  </ion-item-divider>
-    <ion-item>Stock Barang  &nbsp;&nbsp;&nbsp;&nbsp;: {{row.stok}}</ion-item>
-    <ion-item>Satuan Barang &nbsp;&nbsp;: {{row.satuan}}</ion-item>
-    <ion-item>
-        <ion-label >Volume Update &nbsp;: </ion-label>
-        <ion-input value="{{nol.value}}" [(ngModel)]="modeKeys[i]" type="text" placeholder="..."  ></ion-input>
+    <label ><font size="5" color="red">Material</font></label>
+    <ion-item *ngIf="panjang_drop_core_v == ''">
+      <ion-label stacked><font color="black">Panjang Drop Core</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="panjang_drop_core" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="panjang_drop_core_v != ''">
+      <ion-label stacked><font color="black">Panjang Drop Core</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="panjang_drop_core" style="color:grey"  ></ion-input>
     </ion-item>
 
-  </ion-item-group>
-    <div hidden *ngIf="platform_device =='Android'">
-        <ion-item>
-            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
-            <button wrap-text ion-button color="danger"  (click)="browse()">Upload</button> {{path}}
-            <hr/>
-        </ion-item>
-  </div>
-  <div *ngIf="platform_device =='iOS'">
-        <ion-item>
-            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
-            <button wrap-text ion-button color="danger"  (click)="fotoAction()">Foto </button> {{path}}
-            <hr/>
-        </ion-item>
-  </div>
+    <ion-item *ngIf="drop_core_v == ''">
+      <ion-label stacked><font color="black">Drop Core</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="drop_core" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="drop_core_v != ''">
+      <ion-label stacked><font color="black">Drop Core</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="drop_core" style="color:grey"  ></ion-input>
+    </ion-item>
+
+   
+
+    <ion-item *ngIf="panjang_utp_v == ''">
+      <ion-label stacked><font color="black">Panjang UTP</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="panjang_utp" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="panjang_utp_v != ''">
+      <ion-label stacked><font color="black">Panjang UTP</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="panjang_utp" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item  *ngIf="panjang_pvc_v == ''">
+      <ion-label stacked><font color="black">Panjang PVC</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="panjang_pvc" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item  *ngIf="panjang_pvc_v != ''">
+      <ion-label stacked><font color="black">Panjang PVC</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="panjang_pvc" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item  *ngIf="panjang_tray_cable_v == ''">
+      <ion-label stacked><font color="black">Panjang Tray Cable</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="panjang_tray_cable" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item  *ngIf="panjang_tray_cable_v != ''">
+      <ion-label stacked><font color="black">Panjang Tray Cable</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="panjang_tray_cable" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item  *ngIf="jumlah_breket_v == ''">
+      <ion-label stacked><font color="black">Jumlah Braket</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="jumlah_breket" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item  *ngIf="jumlah_breket_v != ''">
+      <ion-label stacked><font color="black">Jumlah Braket</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="jumlah_breket" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="jumlah_klem_ring_v == ''">
+      <ion-label stacked><font color="black">Jumlah Klem Ring</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="jumlah_klem_ring" style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="jumlah_klem_ring_v != ''">
+      <ion-label stacked><font color="black">Jumlah Klem Ring</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="jumlah_klem_ring" style="color:grey"  ></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="jumlah_tiang_telpn_v == ''">
+      <ion-label stacked><font color="black">Jumlah Tiang Telepon</font></ion-label>
+      <ion-input placeholder="Type something" [(ngModel)]="jumlah_tiang_telpn " style="color:grey"  ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="jumlah_tiang_telpn_v != ''">
+      <ion-label stacked><font color="black">Jumlah Tiang Telepon</font></ion-label>
+      <ion-input disabled placeholder="Type something" [(ngModel)]="jumlah_tiang_telpn " style="color:grey"  ></ion-input>
+    </ion-item>
       <br/>
       <div>
 
@@ -155,7 +205,7 @@
             <table>
               <tr>
                 <td>
-                    <button hidden class="button" (click)="newElement()">
+                    <button class="button" (click)="newElement()">
                       <ion-icon name="add"></ion-icon> Item Lain &nbsp;
                     </button>
                 </td>

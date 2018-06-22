@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController,ViewController } from 'ionic-angular';
 import {SignaturePage} from '../signature/signature'
 import { Storage } from '@ionic/storage';
-import { Http,Headers,RequestOptions } from '@angular/http';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Http } from '@angular/http';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import 'rxjs/add/operator/map';
-import { ListWoPage } from '../list-wo/list-wo';
+//import { ListWoPage } from '../list-wo/list-wo';
 import { UriProvider  } from '../../providers/uri/uri';
 import { AlertController } from 'ionic-angular';
+import { PemakaianPage } from '../pemakaian/pemakaian';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 /**
  * Generated class for the Pemakaian4Page page.
@@ -23,8 +25,8 @@ import { AlertController } from 'ionic-angular';
 })
 export class Pemakaian4Page {
 
-  kendala: any = '1';
-  alasan_decline: any ='1';
+  kendala: any;
+  alasan_decline: any ;
   harga: any ;
   harga_view: any;
   menggunakan_isp_view: any;
@@ -38,6 +40,7 @@ export class Pemakaian4Page {
   uri_app_amalia: any;
   uri_api_wimata: any;
   nik: any;
+  tanggal_ttd: any;
 
   nama_signature: any;
 
@@ -46,13 +49,15 @@ export class Pemakaian4Page {
    private storage: Storage,
     public TransferObject: FileTransferObject,
     private transfer: FileTransfer,
+   private screenOrientation: ScreenOrientation,
    public http: Http,
+   public uri: UriProvider,
    public alertCtrl: AlertController,
-    public uri: UriProvider,
     public modalController:ModalController,
     public viewCtrl: ViewController) {
-    this.nik = "95130650";
-    var date = new Date();
+    this.storage.get('nik').then((val) => {
+      this.nik = val;  
+	   var date = new Date();
 
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
@@ -61,6 +66,8 @@ export class Pemakaian4Page {
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
     var millisecond = date.getMilliseconds();
+
+    this.tanggal_ttd = day+"-"+month+"-"+year;
 
     this.nama_signature = year+""+month+""+day+""+hours+""+minutes+""+seconds+""+millisecond+""+this.nik;
     console.log(this.nama_signature);
@@ -85,6 +92,9 @@ export class Pemakaian4Page {
         console.log('con', val);
         this.data3 = val;
       });
+    });
+    
+   
 
   }
 
@@ -93,11 +103,12 @@ export class Pemakaian4Page {
   }
 
   openSignatureModel1(){
-    
+     //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
        let modal1 = this.modalController.create(SignaturePage);
         modal1.onDidDismiss(data => {
           console.log(data);
          this.signatureImage1 = data.signatureImage;
+          //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
        });
       modal1.present();
     
@@ -105,9 +116,11 @@ export class Pemakaian4Page {
   }
 
   openSignatureModel2(){
+     //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
        let modal2 = this.modalController.create(SignaturePage);
        modal2.onDidDismiss(data =>{
         this.signatureImage2 = data.signatureImage;
+        //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
        });
       modal2.present();
   }
@@ -124,13 +137,12 @@ export class Pemakaian4Page {
 		// }
   }
 
-  actionPut(){   
+  actionPut(){ 
     if(this.signatureImage1 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else if(this.signatureImage2 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else{
-      console.log("test : "+this.signatureImage1);
       this.upload(this.nama_signature+"_1.png",this.signatureImage1);
       this.upload(this.nama_signature+"_2.png",this.signatureImage2);
       this.showConfirm();
@@ -173,8 +185,13 @@ export class Pemakaian4Page {
 
    showConfirm() {
     let confirm = this.alertCtrl.create({
-      title: 'Input Data',
-      message: 'Apakah anda yakin data yang diinput telah valid? Jika benar Tekan OK',
+      title: 'Sertakan email pelanggan?',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'masukan email pelanggan(opsional)'
+        },
+      ],
       buttons: [
         {
           text: 'Cancel',
@@ -184,8 +201,10 @@ export class Pemakaian4Page {
         },
         {
           text: 'OK',
-          handler: () => {
+          handler: (data) => {
         var data4 = {
+          email:data.email,
+          nik:this.nik,
           kendala:this.kendala,
           alasan_decline:this.alasan_decline,
           harga:this.harga,
@@ -200,14 +219,18 @@ export class Pemakaian4Page {
         var js3 = JSON.stringify(this.data3);
         var js4 = JSON.stringify(data4);
         
-        var ini = "http://10.40.108.153/api_test/amalia/amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
+        var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
         console.log(ini);   
         this.http.get(ini)
           .map(res => res.json())
           .subscribe(data => {
-            console.log(data[0]);
+            if(data.status == "ok"){
+                this.showAlert(data.message);
+                this.navCtrl.setRoot(PemakaianPage);
+            }else{
+              this.showAlert(data.message);
+            }
           },error =>{});
-
             console.log('Agree clicked');
           }
         }
@@ -218,6 +241,34 @@ export class Pemakaian4Page {
 
   actionBack(){
     this.navCtrl.pop();
+  }
+
+   showPromptDialog() {
+    let prompt = this.alertCtrl.create({
+      title: 'Email pelanggan',
+      message: "Isi email pelanggan ..",
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'Title'
+        },
+      ],
+      buttons: [
+        {
+          text: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'submit',
+          handler: data => {
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 

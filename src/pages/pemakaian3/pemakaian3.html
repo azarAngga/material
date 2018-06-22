@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>pemakaian2</ion-title>
+    <ion-title>Halaman ke-3</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,11 +24,18 @@
 						<th width="100%" colspan="2" >
 							<div  style="margin-left: -120px">Modem yang dipasang / ditarik *) </div>
 
-							<ion-list>
+							
+							  
+							  <ion-list>
 							  <ion-item>
-							    <ion-input type="text" [(ngModel)]="modem" placeholder="type something"></ion-input>
+								<ion-label>Modem</ion-label>
+								<ion-select [(ngModel)]="modem">
+								  <ion-option value="zte">ZTE</ion-option>
+								  <ion-option value="huawei">Huawei</ion-option>
+								  
+								</ion-select>
 							  </ion-item>
-							  </ion-list>
+							</ion-list>
 						</th>
 						
 					</tr>
@@ -41,10 +48,10 @@
 								</button>
 							</div>
 						</td>
-						<td>
+						<td><br/><br/>
 						<ion-list style="margin-left: 10px">
 						  <ion-item>
-						    <ion-input type="text" [(ngModel)]="sn_ont" placeholder="type something"></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_ont" placeholder="Tulis sesuatu"></ion-input>
 						  </ion-item>
 						  </ion-list>
 						</td>
@@ -59,10 +66,27 @@
 								</button>
 							
 						</td>
-						<td>
+						<td><br/><br/>
 						<ion-list style="margin-left: 10px">
 						  <ion-item>
-						    <ion-input type="text" [(ngModel)]="sn_modem" placeholder="type something"></ion-input>
+						    <ion-input type="text" [(ngModel)]="sn_modem" placeholder="Tulis sesuatu"></ion-input>
+						  </ion-item>
+						  </ion-list>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							MAC Address STB
+								<button (click)="actionMac()" class="button">
+								  
+								  <ion-icon name="md-barcode"></ion-icon>&nbsp; Scan Barcode
+								</button>
+							
+						</td>
+						<td><br/><br/>
+						<ion-list style="margin-left: 10px">
+						  <ion-item>
+						    <ion-input type="text" [(ngModel)]="mac_address" placeholder="Tulis sesuatu"></ion-input>
 						  </ion-item>
 						  </ion-list>
 						</td>
@@ -101,21 +125,13 @@
 					<tr>
 						<td colspan="2">&nbsp;</td>
 					</tr>
-					<tr>
-						<td colspan="2" >Mac Address STB 
-							<ion-list>
-							  <ion-item>
-							    <ion-input type="text"  [(ngModel)]="mac_address" placeholder="type something"></ion-input>
-							  </ion-item>
-							  </ion-list>
-						</td>
-					</tr>
+					
 					<tr>
 						<td width="20%" >Nama Teknisi</td>
 						<td width="60%"  >
 							<ion-list>
 							  <ion-item>
-							    <ion-input [(ngModel)]="nama" type="text" placeholder="type something"></ion-input>
+							    <ion-input [(ngModel)]="nama" type="text" placeholder="Tulis sesuatu"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -125,7 +141,7 @@
 						<td width="60%"  >
 							<ion-list>
 							  <ion-item>
-							    <ion-input [(ngModel)]="notel_teknisi" type="text" placeholder="type something"></ion-input>
+							    <ion-input [(ngModel)]="notel_teknisi" type="text" placeholder="Tulis sesuatu"></ion-input>
 							  </ion-item>
 							  </ion-list>
 						</td>
@@ -205,26 +221,26 @@
 	    <table width="100%">
 	    	<tr>
 	    		<td width="50%">
-		    		<ion-radio checked="true" value="10"></ion-radio> 10MB
+		    		<ion-radio checked="true" value="1"></ion-radio> 10MB
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="40"></ion-radio> 40MB
+		    		<ion-radio  value="4"></ion-radio> 40MB
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="20"></ion-radio> 20MB
+		    		<ion-radio  value="2"></ion-radio> 20MB
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="50"></ion-radio> 50MB
+		    		<ion-radio  value="5"></ion-radio> 50MB
 		    	</td>
 	    	</tr>
 	    	<tr>
 	    		<td>
-		    		<ion-radio  value="30"></ion-radio> 30MB
+		    		<ion-radio  value="3"></ion-radio> 30MB
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="100"></ion-radio> 100MB
+		    		<ion-radio  value="10"></ion-radio> 100MB
 		    	</td>
 	    	</tr>
 	    	<tr>

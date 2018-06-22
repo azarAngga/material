@@ -1,7 +1,10 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import {  NavController, NavParams,ViewController } from 'ionic-angular';
 import {SignaturePad} from 'angular2-signaturepad/signature-pad';
 import {Pemakaian4Page} from '../pemakaian4/pemakaian4';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
+
 /**
  * Generated class for the SignaturePage page.
  *
@@ -19,11 +22,13 @@ export class SignaturePage {
   public signaturePadOptions : Object = {
     'minWidth': 2,
     'canvasWidth': 340,
-    'canvasHeight': 200
+    'canvasHeight': 300
   };
   public signatureImage : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController,private screenOrientation: ScreenOrientation) {
+ 
+
   }
 
   ionViewDidLoad() {

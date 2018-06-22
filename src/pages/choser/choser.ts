@@ -4,7 +4,7 @@ import { IonicPage,NavController, ActionSheetController, ToastController, Platfo
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer,  FileTransferObject } from '@ionic-native/file-transfer';
 import { FileChooser } from '@ionic-native/file-chooser';
 
  

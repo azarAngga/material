@@ -8,7 +8,9 @@ import { Storage } from '@ionic/storage';
 import { Pemakaian2Page }from '../pemakaian2/pemakaian2';
 import { Http,Headers,RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { UriProvider  } from '../../providers/uri/uri';
+import { Device } from '@ionic-native/device';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the PemakaianPage page.
@@ -25,6 +27,7 @@ import 'rxjs/add/operator/map';
 export class PemakaianPage {
 	nama_mitra: any ;
 	start_date: any ;
+	
 	end_date: any ;
 	no_wo: any ;
 	sto: any ;
@@ -33,7 +36,8 @@ export class PemakaianPage {
 	no_inet: any ;
 	nama_pelanggan: any ;
 	menu: any  = "order";
-	nik: any = '95130809';
+	//nik: any = '95130809';
+	nik: any = '17930960';
 
 	hk: any ;
 	dp: any ;
@@ -43,13 +47,23 @@ export class PemakaianPage {
 	tanggal_mulai: any;
 	tanggal_selesai: any;
 
-	panjang_drop_core: any ;
-	drop_core: any ;
-	panjang_utp: any ;
-	panjang_pvc: any ;
-	jumlah_breket: any ;
-	jumlah_klem_ring: any ;
-	jumlah_tiang_telpn: any ;
+	panjang_drop_core: any = "" ;
+	drop_core: any ="";
+	panjang_utp: any ="";
+	panjang_pvc: any ="";
+	panjang_tray_cable: any ="";
+	jumlah_breket: any ="";
+	jumlah_klem_ring: any ="";
+	jumlah_tiang_telpn: any ="";
+
+	panjang_drop_core_v: any = "" ;
+	drop_core_v: any ="";
+	panjang_utp_v: any ="";
+	panjang_pvc_v: any ="";
+	panjang_tray_cable_v: any ="";
+	jumlah_breket_v: any ="";
+	jumlah_klem_ring_v: any ="";
+	jumlah_tiang_telpn_v: any ="";
 
 	view_nama_mitra: any = 1;
 	perusahaan: any = "telkom akses";
@@ -58,20 +72,44 @@ export class PemakaianPage {
 	data_material: any;
 	arr_material: any;
 
-
+	meter_awal: any;
+	meter_akhir: any;
+	
+	// material
+	pages: Array<{title: string, component: any}>;
+	number_index: any;
+	loader: any;
+	path: any;
+	nama_file: any;
+	platform_device: any;
+	
+	uri_api_alista: any;
+	uri_app_amalia: any;
+	uri_api_wimata: any;
+	modeKeys: any[];
+	count_wo: any;
+	public nol: number = 0;
+	data_wo: Array<{id_barang: string,stok: string,satuan: string}>;
+	optionsList: Array<{ value: number, text: string, checked: boolean }> = [];
+  
+	
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
+   public uri: UriProvider,
    public alertCtrl: AlertController,
    public modalCtrl: ModalController,
    public http: Http,
+	public loadingCtrl: LoadingController,
+   private device: Device,
    private storage: Storage
    ) {
+	   console.log(this.uri_api_alista+'get_data_list_material.php');
    	  this.tanggal_mulai 	 = new Date().toISOString();
 	  this.tanggal_selesai = new Date().toISOString();
-      var date1 = new Date();
+      //var date1 = new Date();
       var date2 = new Date();
 
-      storage.get('data').then((val) => {
+      this.storage.get('data').then((val) => {
 	    console.log('con', val);
 	  });
 
@@ -79,6 +117,8 @@ export class PemakaianPage {
       this.start_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       this.actionGetMaterial();
+	  
+	  this.loadMaterial(this.nik);
 
   }
 
@@ -132,7 +172,7 @@ export class PemakaianPage {
 	      	}
       	}
 
- 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td width="50%"><select id="id_barang'+no+'" >'+str_app+'</select></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td></tr></table></div>');
+ 		$('#parent').append('<div id="el'+no+'">New Item '+no+'<table><tr><td><select  style="width:150px"  id="id_barang'+no+'" >'+str_app+'</select></td><td width="30%"><input type="text" placeholder="volume" id="volume'+no+'" class="classInput"/></td></tr></table></div>');
  	}
 
  	newElementDsg(){
@@ -152,15 +192,7 @@ export class PemakaianPage {
  		$('#parentDsg').append('<div id="dsg'+no+'"><table width="100%"><tr><td width="50%"><div align="center">Designator</div></td><td width="40%" colspan="2"><div align="center">Jumlah</div></td></tr><tr><td width="40%"><div align="center"><select width="10" id="designator'+no+'">'+str_app+'</select></div><td><td width="40%"><div align="center"><input  width="5" type="number" id="jumlah_dsg'+no+'" style="border-width: 1px;" /></div><td><td width="20%"><br/><br/><br/></td><td></tr></table></div>');
  	}
 
- 	removeElememt(){
- 		var no = this.no_row;
- 		//alert(x);
- 		$('#el'+no).remove();
- 		this.no_row = this.no_row-1;
- 		if(this.no_row < 0){
- 			this.no_row = 0;
- 		}
- 	}
+ 	
 
  	removeElememtDsg(){
  		var no = this.no_row_dsg;
@@ -174,9 +206,15 @@ export class PemakaianPage {
  	ngAfterViewInit(){
  		
  	}
-
-
-
+removeElememt(){
+ 		var no = this.no_row;
+ 		//alert(x);
+ 		$('#el'+no).remove();
+ 		this.no_row = this.no_row-1;
+ 		if(this.no_row < 0){
+ 			this.no_row = 0;
+ 		}
+ 	}
  	actionNext(){
 
  		var no = 1;
@@ -200,14 +238,6 @@ export class PemakaianPage {
  			this.showAlert("End Date Tidak boleh kosong");
  		}else if(this.nama_pelanggan == undefined){
  			this.showAlert("Nama Pelanggan Tidak boleh kosong");
- 		}else if(this.hk == undefined){
- 			this.showAlert("HK/MSAN/ODC Tidak boleh kosong");
- 		}else if(this.dp == undefined){
- 			this.showAlert("DP/ODP Tidak boleh kosong");
- 		}else if(this.klem_primer == undefined){
- 			this.showAlert("Klem Primer/Feeder Tidak boleh kosong");
- 		}else if(this.klem_sec == undefined){
- 			this.showAlert("Klem Sec/Distribusi Tidak boleh kosong");
  		}else{
  			
  			while(no <= this.no_row){
@@ -223,63 +253,158 @@ export class PemakaianPage {
 	 		no = 1;
 	 		var designator = [];
 	 		var jumlah     = [];
+			
+			// material
+			var id_barang_m = []; 	
+			var stok_m = []; 		 
+			var satuan_m = []; 	 
+			var volume_m = [];	
+			var wo_number_m = []; 
+			
+			// material2
+			var id_barang_m2 = []; 	
+			var stok_m2 = []; 		 
+			var satuan_m2 = []; 	 
+			var volume_m2 = [];	
+			var wo_number_m2 = []; 
+			
+
 	 		while(no <= this.no_row_dsg){
 	 			designator.push($('#designator'+no).val());
 	 			jumlah.push($('#jumlah_dsg'+no).val());
 	 			console.log($('#designator'+no).val());
 	 			no++;
 	 		}
+			
+			for(var idx = 0;idx < this.data_wo.length ; idx++){
+				 id_barang_m[idx] 	= this.data_wo[idx].id_barang;
+				 stok_m[idx] 		= this.data_wo[idx].stok; 
+				 satuan_m[idx] 		= this.data_wo[idx].satuan; 
+				 volume_m[idx]		= this.modeKeys[idx];
+				 wo_number_m  		= this.no_wo;
+				 
+				 id_barang_m2.push(this.data_wo[idx].id_barang);
+				 stok_m2.push(this.data_wo[idx].stok); 
+				 satuan_m2.push(this.data_wo[idx].satuan); 
+				 volume_m2.push(this.modeKeys[idx]);
+				 wo_number_m2.push(this.no_wo);
+			}
+			
+			
+			let headers = new Headers({
+				'Content-Type' : 'application/x-www-form-urlencoded'
+			});	
 
-	 		var data = {
-	 			'jumlah_tiang_telpn':this.jumlah_tiang_telpn,
-	 			'jumlah_klem_ring':this.jumlah_klem_ring,
-	 			'jumlah_breket':this.jumlah_breket,
-	 			'panjang_pvc':this.panjang_pvc,
-	 			'panjang_utp':this.panjang_utp,
-	 			'panjang_drop_core':this.panjang_drop_core,
-	 			'drop_core':this.drop_core,
-				'nama_mitra':this.nama_mitra,
-				'no_wo':this.no_wo,
-				'sto':this.sto,
-				'no_permintaan':this.no_permintaan ,
-				'no_telepon':this.no_telepon ,
-				'no_inet':this.no_inet ,
-				'start_date':this.start_date ,
-				'end_date':this.end_date ,
-				'nama_pelanggan':this.nama_pelanggan ,
-				'hk':this.hk ,
-				'dp':this.dp ,
-				'klem_primer':this.klem_primer ,
-				'klem_sec':this.klem_sec ,
-				'other': {'id_barang':id_barang,'volume':volume,'satuan':satuan} ,
-				'designator': {'designator':designator,'jumlah':jumlah} ,
-			};
-			this.storage.set('data',data);
-	 		this.navCtrl.push(Pemakaian2Page);
+			// create option 
+			let requestOptions = new RequestOptions({
+				headers : headers
+			});
+			
+			
+			console.log("no string "+volume_m);
+			console.log("with string "+JSON.stringify(volume_m));
+			let wo = 'wo_number='+this.no_wo+'&nik='+this.nik+'&id_barang='+id_barang_m+'&volume='+volume_m+'&flag=ionic&namafile='+this.nama_file;
+			//this.showAlertNews(wo);
+			console.log("ini_parmeter "+wo);
+
+			//execute url post
+			this.http.post(this.uri_api_alista+'ios/put_data_pemakaian_halaman1.php',wo,requestOptions)
+			.map(res => res.json())
+			.subscribe(data => {
+				var data_response = data.status;
+				if(data_response == true){
+			
+					var datas = {
+						'jumlah_tiang_telpn':this.jumlah_tiang_telpn,
+						'jumlah_klem_ring':this.jumlah_klem_ring,
+						'jumlah_breket':this.jumlah_breket,
+						'panjang_pvc':this.panjang_pvc,
+						'panjang_utp':this.panjang_utp,
+						'panjang_drop_core':this.panjang_drop_core,
+						'panjang_tray_cable':this.panjang_tray_cable,
+						'drop_core':this.drop_core,
+						'nama_mitra':this.nama_mitra,
+						'no_wo':this.no_wo,
+						'meter_awal': this.meter_awal,
+						'meter_akhir': this.meter_akhir,
+						'sto':this.sto,
+						'no_permintaan':this.no_permintaan ,
+						'no_telepon':this.no_telepon ,
+						'no_inet':this.no_inet ,
+						'start_date':this.start_date ,
+						'end_date':this.end_date ,
+						'nama_pelanggan':this.nama_pelanggan ,
+						'hk':this.hk ,
+						'dp':this.dp ,
+						'klem_primer':this.klem_primer ,
+						'klem_sec':this.klem_sec ,
+						'other': {'id_barang':id_barang,'volume':volume,'satuan':satuan} ,
+						'other_m2': {'id_barang':id_barang_m2,'stok':stok_m2,'satuan':satuan_m2,'volume':volume_m2,'wo_number':wo_number_m2} ,
+						'designator': {'designator':designator,'jumlah':jumlah} ,
+					};
+					//this.navCtrl.setRoot(HomePage);
+					this.validasiMaterial(datas);
+					//this.showAlert(data.message);
+				}else{
+					this.showAlert(data.message);
+				}
+
+				this.loader.dismiss();
+			}); 
+
+	 		
+			
  		}
  	}
 
  	actionGetMaterial(){
- 	  this.http.get("http://10.40.108.153/api_test/alista/ios/get_data_list_material.php?nik="+this.nik)
+ 	  this.http.get(this.uri.uri_api_alista+"ios/get_data_list_material.php?nik="+this.nik)
       .map(res => res.json())
       .subscribe(data => {
       	console.log("data materila :"+data.length);
       	console.log("data materila :"+JSON.stringify(data));
       	var no = 0;
-      	var arr_ = [];
+      	//var arr_ = [];
       	this.arr_material = data;
       	console.log(data[0].id_barang);
-      	while(no <= data.length){
+      	while(no < data.length){
 
       		if(data[no].id_barang.indexOf("drop core") > -1){
       			this.drop_core = data[no].id_barang;
+      			this.drop_core_v = data[no].id_barang;
+      			this.panjang_drop_core = data[no].jumlah_permintaan_barang;
+      			this.panjang_drop_core_v = data[no].jumlah_permintaan_barang;
+      			console.log(JSON.stringify(data[no]));
       		}
+
+
+      		if(data[no].id_barang.indexOf("utp") > -1){
+      			this.panjang_utp = data[no].jumlah_permintaan_barang;
+      			this.panjang_utp_v = data[no].jumlah_permintaan_barang;
+      		}
+
+      		if(data[no].id_barang.indexOf("tray") > -1){
+      			this.panjang_tray_cable = data[no].jumlah_permintaan_barang;
+      			this.panjang_tray_cable_v = data[no].jumlah_permintaan_barang;
+      		}
+
+      		if(data[no].id_barang.indexOf("braket") > -1){
+      			this.jumlah_breket = data[no].jumlah_permintaan_barang;
+      			this.jumlah_breket_v = data[no].jumlah_permintaan_barang;
+      		}
+
+      		if(data[no].id_barang.indexOf("klem") > -1){
+      			this.jumlah_klem_ring = data[no].jumlah_permintaan_barang;
+      			this.jumlah_klem_ring_v = data[no].jumlah_permintaan_barang;
+      		}
+
+      		if(data[no].id_barang.indexOf("tiang") > -1){
+      			this.jumlah_tiang_telpn = data[no].jumlah_permintaan_barang;
+      			this.jumlah_tiang_telpn_v = data[no].jumlah_permintaan_barang;
+      		}
+
       		no++;
       	}
-      	// while(no < data.length){
-      	// }
-
-
 
       },error =>{});
  	}
@@ -293,12 +418,89 @@ export class PemakaianPage {
       alert.present();
     }
 
- 	// set a key/value
-	// storage.set('name', 'Max');
+    validasiMaterial(datax){
+      var valid = JSON.stringify(datax);
+      var url = this.uri.uri_api_alista+"ios/validation_put_ba.php?nik="+this.nik+"&wo="+this.no_wo+"&halaman1="+valid;
+      console.log("validas",url);
+ 	  this.http.get(url)
+      .map(res => res.json())
+      .subscribe(data => {
+      	var return_data = data.status;
+      	if(return_data){
+			this.storage.set('data',datax);
+	 		this.navCtrl.push(Pemakaian2Page);
+      	}else{
+      		this.showAlert(data.message);
+      	}
+      });
+  	}
+	
+	loadMaterial(nik){
+		
+		this.pages = [];
+		this.number_index = 0;
+		this.path = "-";
+		this.nama_file = "-";
+		this.platform_device = this.device.platform;
+		console.log(this.device);
+		// URI
+		this.uri_api_alista = this.uri.uri_api_alista;
+		this.uri_app_amalia = this.uri.uri_app_amalia;
+		this.uri_api_wimata = this.uri.uri_api_wimata;
 
-	//   // Or to get a key/value pair
-	//   storage.get('age').then((val) => {
-	//     console.log('Your age is', val);
-	//   });
+		//this.platform_device = 'iOS';
+		//this.showAlertNews(device.platform);
+			
+		
+		this.onLoad(nik);
+	}
+	
+	onLoad(nik){
+		this.modeKeys = [];
+		console.log(this.modeKeys[0]);  
 
+		this.count_wo = 0 ;
+		this.data_wo = [
+	      { id_barang: '-',stok: "0",satuan: "-"}
+	    ];
+
+	     this.optionsList.push({ value: 1, text: 'option 1', checked: false });
+	     this.optionsList.push({ value: 2, text: 'option 2', checked: false });
+
+	     this.loading();
+	    
+		  let headers = new Headers({
+	  		'Content-Type' : 'application/x-www-form-urlencoded'
+	  	});	
+
+	  	// create option 
+	  	let requestOptions = new RequestOptions({
+	  		headers : headers
+	  	});
+
+      let wo = 'nik='+nik;
+	  	//let wo = 'nik=97150427';
+	  	
+	  	//execute url post
+      this.http.post(this.uri_api_alista+'get_data_list_material.php',wo,requestOptions)
+	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
+	  	.map(res => res.json())
+	  	.subscribe(data => {
+	  		this.data_wo = data;
+	  		for(var idx = 0;idx < data.length;idx++){
+	  			this.modeKeys[idx] = 0;
+	  		}
+	  		// dismiss loading from loader
+	  		this.loader.dismiss();
+	  	}); 
+	}
+	
+	loading(){
+  	this.loader = this.loadingCtrl.create({
+  		content: "please Wait.."
+  	})
+
+  	// execute loading 
+  	this.loader.present();
+  }
 }

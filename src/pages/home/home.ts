@@ -8,18 +8,20 @@ import { Events } from 'ionic-angular';
 
 import { Device } from '@ionic-native/device';
 import { Camera } from '@ionic-native/camera';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 
 // element
 import { LoadingController } from 'ionic-angular';
+import { PemakaianPage } from '../pemakaian/pemakaian';
+import { BaPage } from '../ba/ba';
 
-import { CreateWoPage } from '../create-wo/create-wo';
+//import { CreateWoPage } from '../create-wo/create-wo';
 import { LoginPage } from '../login/login';
 import { ListWoPage } from '../list-wo/list-wo';
-import { UriProvider  } from '../../providers/uri/uri'
+import { UriProvider  } from '../../providers/uri/uri';
 declare var cordova: any;
 
 @Component({
@@ -72,8 +74,8 @@ export class HomePage {
     this.number_index = 0;
     this.path = "-";
     this.nama_file = "-";
-    this.platform_device = device.platform;
-
+    this.platform_device = this.device.platform;
+    console.log(this.device);
     // URI
     this.uri_api_alista = this.uri.uri_api_alista;
     this.uri_app_amalia = this.uri.uri_app_amalia;
@@ -375,7 +377,7 @@ export class HomePage {
     }
 
     fileGet(){
-      var path;
+      //var path;
       this.fileChooser.open()
           .then(uri => {
              this.filePath.resolveNativePath(uri)
@@ -488,6 +490,8 @@ export class HomePage {
     this.pages = [
         { title: 'Update Material Alista', component: HomePage },
         { title: 'List Stok Barang', component: ListWoPage },
+        { title: 'Create BA online', component: PemakaianPage },
+        { title: 'List BA Online', component: BaPage },
         { title: 'Logout', component: LoginPage }
     ];
   }
@@ -495,8 +499,9 @@ export class HomePage {
  loadMenuWithWitel(){
     this.pages = [
         { title: 'Update Material Alista', component: HomePage },
-        //{ title: 'Create wo', component: CreateWoPage },
         { title: 'List Stok Barang', component: ListWoPage },
+        { title: 'Create BA online', component: PemakaianPage },
+        { title: 'List BA Online', component: BaPage },
         { title: 'Logout', component: LoginPage }
     ];
   }

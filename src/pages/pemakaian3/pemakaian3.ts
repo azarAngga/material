@@ -56,6 +56,15 @@ export class Pemakaian3Page {
       alert(err);
     });
   }
+  
+  actionMac(){
+    this.barcodeScanner.scan().then((barcodeData) => {
+     // Success! Barcode data is here
+     this.mac_address = barcodeData.text;
+    }, (err) => {
+      alert(err);
+    });
+  }
 
 
   ionViewDidLoad() {

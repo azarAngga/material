@@ -4,8 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule  } from '@ionic/storage';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
@@ -18,6 +21,7 @@ import { PemakaianPage } from '../pages/pemakaian/pemakaian';
 import { Pemakaian2Page } from '../pages/pemakaian2/pemakaian2';
 import { Pemakaian3Page } from '../pages/pemakaian3/pemakaian3';
 import { Pemakaian4Page } from '../pages/pemakaian4/pemakaian4';
+import { BaPage } from '../pages/ba/ba';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { ChoserPage } from '../pages/choser/choser';
@@ -42,6 +46,7 @@ import { UriProvider } from '../providers/uri/uri';
     Pemakaian2Page,
     Pemakaian3Page,
     Pemakaian4Page,
+    BaPage,
     ListPage,
     LoginPage,
     ChoserPage,
@@ -65,6 +70,7 @@ import { UriProvider } from '../providers/uri/uri';
     Pemakaian2Page,
     Pemakaian3Page,
     Pemakaian4Page,
+    BaPage,
     ListPage,
     LoginPage,
     ChoserPage,
@@ -73,9 +79,12 @@ import { UriProvider } from '../providers/uri/uri';
     ModalNikBawahanPage
   ],
   providers: [
+  ScreenOrientation,
+  DocumentViewer,
   BarcodeScanner,
   Device,
   FilePath,
+  FileOpener,
   File,
   Camera,
   FileTransferObject,
