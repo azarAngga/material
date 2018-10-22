@@ -55,9 +55,9 @@
     
   </ion-item>
 
-  <ion-item>
+  <ion-item hidden>
     <ion-label stacked><font color="black">No WO</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_wo" style="color:grey"  ></ion-input>
+    <ion-input value="00" placeholder="Tulis sesuatu" [(ngModel)]="no_wo" style="color:grey"  ></ion-input>
   </ion-item>
 
   <ion-item>
@@ -70,28 +70,36 @@
     <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_permintaan" style="color:grey"></ion-input>
   </ion-item>
   <ion-item>
+    <ion-label stacked><font color="black">No Kontak</font></ion-label>
+    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_kontak"  type="number" max="13" style="color:grey"></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-label stacked><font color="black">No Telepon</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_telepon" type="number" style="color:grey"></ion-input>
+    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_telepon"  type="number" style="color:grey"></ion-input>
   </ion-item>
    <ion-item>
     <ion-label stacked><font color="black">No Inet</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_inet" type="number" style="color:grey"></ion-input>
+    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="no_inet"  type="number" style="color:grey"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked><font color="black">Start Date</font></ion-label>
+    <ion-label stacked><font color="black">Tanggal Wo</font></ion-label>
     <ion-datetime displayFormat="MMM DD, YYYY" (ionChange)="changeStart($event)"  [(ngModel)]="tanggal_mulai"  style="color:grey"></ion-datetime>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked><font color="black">End Date</font></ion-label>
+    <ion-label stacked><font color="black">Tanggal Transaksi</font></ion-label>
     <ion-datetime  displayFormat="MMM DD, YYYY" (ionChange)="changeEnd($event)"  [(ngModel)]="tanggal_selesai" style="color:grey" ></ion-datetime>
   </ion-item>
-
   
    <ion-item>
     <ion-label stacked><font color="black">Nama Pelanggan</font></ion-label>
     <ion-input placeholder="Tulis sesuatu" [(ngModel)]="nama_pelanggan" style="color:grey"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked><font color="black">Alamat Pelanggan</font></ion-label>
+    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="alamat_pelanggan" style="color:grey"></ion-input>
   </ion-item>
     
     

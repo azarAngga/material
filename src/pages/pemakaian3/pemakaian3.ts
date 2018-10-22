@@ -12,7 +12,6 @@ import { AlertController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-pemakaian3',
   templateUrl: 'pemakaian3.html',
@@ -28,9 +27,9 @@ export class Pemakaian3Page {
   speed_other: any;
  	nama: any;
  	notel_teknisi: any;
- 	psb: any= '1';
- 	migrasi: any = '1';
- 	speed: any ='10';
+ 	psb: any;
+ 	migrasi: any;
+ 	speed: any ='1';
 
  	other: any;
  	other_view: any = 0;
@@ -81,12 +80,12 @@ export class Pemakaian3Page {
       this.showAlert("Modem tidak boleh kosong");
     }else if(this.mac_address == undefined){
       this.showAlert("Mac Address STB tidak boleh kosong");
-    }else if(this.nama == undefined){
-      this.showAlert("Nama Teknisi tidak boleh kosong");
-    }else if(this.notel_teknisi == undefined){
-      this.showAlert("Notel Teknisi tidak boleh kosong");
-    }else if(this.psb  == undefined){
-      this.showAlert("PSB tidak boleh kosong");
+    //}//else if(this.nama == undefined){
+      //this.showAlert("Nama Teknisi tidak boleh kosong");
+    //}//else if(this.notel_teknisi == undefined){
+     // this.showAlert("Notel Teknisi tidak boleh kosong");
+    }else if(this.psb  == undefined && this.migrasi  == undefined){
+      this.showAlert("PSB atau Migrasi tidak boleh kosong");
     }else{
         var data3 = {
             sn_ont:this.sn_ont,

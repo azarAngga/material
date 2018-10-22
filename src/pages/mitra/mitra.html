@@ -1,6 +1,12 @@
-<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+<ion-item>
+    <ion-label fixed>Nama Mitra</ion-label>
+    <ion-input [(ngModel)]="search" (keyup.enter)="searchAction()" type="text" value=""></ion-input>
+</ion-item>
+<button color="light" ion-button full (click)="searchAction()">Search</button>
 <ion-list>
-  <ion-item *ngFor="let item of items" (click)="dismiss(item)">
-    {{ item }}
+  <ion-item color="grey"  *ngFor="let item of items" (click)="dismiss(item)">
+    <ion-label  color="primary">{{ item }}</ion-label>
   </ion-item>
+
 </ion-list>

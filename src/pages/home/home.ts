@@ -83,7 +83,7 @@ export class HomePage {
 
     //this.platform_device = 'iOS';
     //this.showAlertNews(device.platform);
-    storage.get('nik').then((val) => {
+    this.storage.get('nik').then((val) => {
       this.setData("oke");
       this.setNik(val);
       var nik = val;
@@ -94,6 +94,7 @@ export class HomePage {
       //nik = '97150427';
       //nik = '17870134';
       //nik = '15891348';
+      //nik = '16940495';
 
       //this.http.get('http://180.250.124.181/API/alista/ios/get_data_team_leader.php?nik='+nik)
       //this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_team_leader.php?nik='+nik)
@@ -116,7 +117,7 @@ export class HomePage {
       });
 
       this.nik = nik;
-      this.versi = 3;
+      this.versi = 6;
       this.checkUpdate();
       this.loadNameJabatan();
       this.onLoad(nik);
@@ -185,9 +186,9 @@ export class HomePage {
   		 wo_number  		= this.wo;
   	}
 
-  	let wo = 'wo_number='+wo_number+'&nik='+this.nik+'&id_barang='+id_barang+'&volume='+volume+'&flag=ionic&namafile='+this.nama_file;
+  	let wo = 'wo_number='+wo_number+'&nik='+this.nik+'&id_barang='+id_barang+'&volume='+volume+'&flag=ionic&namafile='+this.nama_file+"&versi="+this.uri.versi;
     //this.showAlertNews(wo);
-  	console.log("ini_parmeter "+wo);
+  	console.log("ini_parmeter "+this.uri_api_alista+'ios/put_data_pemakaian.php'+wo);
 
   	//execute url post
     this.http.post(this.uri_api_alista+'ios/put_data_pemakaian.php',wo,requestOptions)
@@ -284,7 +285,8 @@ export class HomePage {
 
       let wo = 'nik='+nik;
 	  	//let wo = 'nik=97150427';
-	  	
+      console.log(wo);
+	  	console.log(this.uri_api_alista+'get_data_list_material.php');
 	  	//execute url post
       this.http.post(this.uri_api_alista+'get_data_list_material.php',wo,requestOptions)
 	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
@@ -348,6 +350,8 @@ export class HomePage {
         this.storage.get('foto')
         .then((val) => {
           this.foto = val;
+          this.no_gsm(data.no_gsm);
+          this.name(data.name);
           this.events.publish('menu:tampilNama',data.name,data.nama_posisi,this.foto);
         });
       });
@@ -483,7 +487,14 @@ export class HomePage {
 
     setWitel(x){
       this.storage.set('witel',x);
+    }
 
+    no_gsm(x){
+      this.storage.set('no_gsm',x);
+    }
+
+    name(x){
+      this.storage.set('name',x);
     }
 
   loadMenu(){

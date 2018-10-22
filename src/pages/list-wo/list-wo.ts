@@ -4,6 +4,7 @@ import { Http }from '@angular/http';
 import 'rxjs/add/operator/map';
 import { LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { UriProvider  } from '../../providers/uri/uri';
 /**
  * Generated class for the ListWoPage page.
  *
@@ -11,7 +12,6 @@ import { Storage } from '@ionic/storage';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-list-wo',
   templateUrl: 'list-wo.html',
@@ -23,13 +23,14 @@ export class ListWoPage {
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
    public http: Http,
+   public uri: UriProvider,
   public storage: Storage,
    public loadingCtrl: LoadingController
    ){
     this.loading();
     this.storage.get('nik').then(val =>{
-      console.log('http://api.telkomakses.co.id/API/alista/ios/get_data_list_material.php?nik='+val);
-      this.http.get('http://api.telkomakses.co.id/API/alista/ios/get_data_list_material.php?nik='+val)
+      console.log(this.uri.uri_api_alista+'ios/get_data_list_material.php?nik='+val);
+      this.http.get(this.uri.uri_api_alista+'ios/get_data_list_material.php?nik='+val)
       .map(res => res.json())
       .subscribe(data =>{
         console.log(data);

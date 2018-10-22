@@ -43,7 +43,6 @@ export class MyApp {
         if(this.foto == null){
             this.foto = "";
         }
-        
       });
 
       this.events.subscribe('menu:tampil', (menu) => {

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { UriProvider  } from '../../providers/uri/uri';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the MitraPage page.
@@ -10,7 +12,6 @@ import 'rxjs/add/operator/map';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-mitra',
   templateUrl: 'mitra.html',
@@ -18,9 +19,11 @@ import 'rxjs/add/operator/map';
 export class MitraPage {
   nama_mitra: any;
   items: any;
+  loader: any;
+  search: any;
   json_data_vendor2: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http: Http,public viewCtrl: ViewController) {
-  	this.loadData();
+  constructor(public navCtrl: NavController,public uri: UriProvider,public loadingCtrl: LoadingController, public navParams: NavParams,public http: Http,public viewCtrl: ViewController) {
+  	
   }
 
   ionViewDidLoad() {
@@ -28,17 +31,23 @@ export class MitraPage {
   }
 
   loadData(){
-      this.http.get("http://10.204.200.8/API/master/get_data_all_master_mitra.php")
+      this.loading();
+      this.http.get(this.uri.uri_api+"master/get_data_all_master_mitra.php?nama="+this.search)
       .map(res => res.json())
       .subscribe(data => {
       	this.nama_mitra = data.data;
       	this.json_data_vendor2 = data.mitra;
       	this.initializeItems();
+        this.loader.dismiss();
       });
   }
 
   initializeItems() {
     this.items = this.json_data_vendor2;
+  }
+
+  searchAction(){
+    this.loadData();
   }
 
   getItems(ev: any) {
@@ -66,6 +75,15 @@ export class MitraPage {
    let data = { 'data': x };
    this.viewCtrl.dismiss(data);
  }
+
+ loading(){
+      this.loader = this.loadingCtrl.create({
+        content: "please Wait.."
+      })
+
+      // execute loading 
+      this.loader.present();
+    }
 
   
 }

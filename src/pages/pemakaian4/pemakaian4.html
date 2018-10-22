@@ -201,7 +201,8 @@
 			<td>
 				<div align="right" style="margin-right: -10px">
 				  <br/>
-				  <button class="button" (click)="actionPut()" right>Submit</button>
+				  <img *ngIf="loader_gif == 'on'" src="loader.gif" />
+				  <button *ngIf="loader_gif == 'off'"  class="button" (click)="actionPut()" right>Submit</button>
 				</div>
 			</td>
 		</tr>

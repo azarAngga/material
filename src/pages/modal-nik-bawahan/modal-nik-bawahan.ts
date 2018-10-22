@@ -12,7 +12,6 @@ import { Storage } from'@ionic/storage';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-modal-nik-bawahan',
   templateUrl: 'modal-nik-bawahan.html',

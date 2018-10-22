@@ -10,6 +10,7 @@ import { UriProvider  } from '../../providers/uri/uri';
 import { AlertController } from 'ionic-angular';
 import { PemakaianPage } from '../pemakaian/pemakaian';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the Pemakaian4Page page.
@@ -18,7 +19,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-pemakaian4',
   templateUrl: 'pemakaian4.html',
@@ -26,6 +26,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 export class Pemakaian4Page {
 
   kendala: any;
+  loader_gif: any = 'off';
   alasan_decline: any ;
   harga: any ;
   harga_view: any;
@@ -40,7 +41,8 @@ export class Pemakaian4Page {
   uri_app_amalia: any;
   uri_api_wimata: any;
   nik: any;
-  tanggal_ttd: any;
+  tanggal_ttd: any
+  loader: any;
 
   nama_signature: any;
 
@@ -52,12 +54,14 @@ export class Pemakaian4Page {
    private screenOrientation: ScreenOrientation,
    public http: Http,
    public uri: UriProvider,
+   public loadingCtrl: LoadingController,
    public alertCtrl: AlertController,
     public modalController:ModalController,
     public viewCtrl: ViewController) {
     this.storage.get('nik').then((val) => {
       this.nik = val;  
 	   var date = new Date();
+
 
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
@@ -93,10 +97,7 @@ export class Pemakaian4Page {
         this.data3 = val;
       });
     });
-    
-   
-
-  }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Pemakaian4Page');
@@ -107,7 +108,9 @@ export class Pemakaian4Page {
        let modal1 = this.modalController.create(SignaturePage);
         modal1.onDidDismiss(data => {
           console.log(data);
+          this.loading();
          this.signatureImage1 = data.signatureImage;
+         this.upload(this.nama_signature+"_1.png",this.signatureImage1);
           //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
        });
       modal1.present();
@@ -119,7 +122,9 @@ export class Pemakaian4Page {
      //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
        let modal2 = this.modalController.create(SignaturePage);
        modal2.onDidDismiss(data =>{
+       	 this.loading();
         this.signatureImage2 = data.signatureImage;
+        this.upload(this.nama_signature+"_2.png",this.signatureImage2);
         //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
        });
       modal2.present();
@@ -143,8 +148,8 @@ export class Pemakaian4Page {
     }else if(this.signatureImage2 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else{
-      this.upload(this.nama_signature+"_1.png",this.signatureImage1);
-      this.upload(this.nama_signature+"_2.png",this.signatureImage2);
+      //this.upload(this.nama_signature+"_1.png",this.signatureImage1);
+      //this.upload(this.nama_signature+"_2.png",this.signatureImage2);
       this.showConfirm();
     }
   }
@@ -159,18 +164,20 @@ export class Pemakaian4Page {
         params : {'fileName': nama}
       };
      
-      var url = this.uri_app_amalia+"uploads.php";
+      var url = this.uri.uri_prod_upload+"upload.php";
       console.log(url);
       const fileTransfer: FileTransferObject = this.transfer.create();
     
      
       //Use the FileTransfer to upload the image
       fileTransfer.upload(path, url, options).then(data => {
+      	this.loader.dismiss();
         console.log("berhasil berhasil uye :"+JSON.stringify(data));
       }, err => {
-
+      	this.loader.dismiss();
         console.log("ddd");
-        console.log(err);
+        console.log("error",err);
+        alert(err);
       });
   }
 
@@ -184,6 +191,7 @@ export class Pemakaian4Page {
   }
 
    showConfirm() {
+
     let confirm = this.alertCtrl.create({
       title: 'Sertakan email pelanggan?',
       inputs: [
@@ -202,7 +210,11 @@ export class Pemakaian4Page {
         {
           text: 'OK',
           handler: (data) => {
-        var data4 = {
+          //confirm.dismiss();
+          this.loader_gif = 'on';
+
+
+          var data4 = {
           email:data.email,
           nik:this.nik,
           kendala:this.kendala,
@@ -219,24 +231,28 @@ export class Pemakaian4Page {
         var js3 = JSON.stringify(this.data3);
         var js4 = JSON.stringify(data4);
         
-        var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4;
+        var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4+"&versi="+this.uri.versi;
         console.log(ini);   
         this.http.get(ini)
           .map(res => res.json())
           .subscribe(data => {
+            this.loader.dismiss();
             if(data.status == "ok"){
                 this.showAlert(data.message);
                 this.navCtrl.setRoot(PemakaianPage);
             }else{
               this.showAlert(data.message);
             }
-          },error =>{});
+          },error =>{
+            this.loader_gif = 'off';
+          });
             console.log('Agree clicked');
           }
         }
       ]
     });
     confirm.present();
+
   }
 
   actionBack(){
@@ -269,6 +285,15 @@ export class Pemakaian4Page {
       ]
     });
     prompt.present();
+  }
+
+  loading(){
+  	this.loader = this.loadingCtrl.create({
+  		content: "please Wait.."
+  	})
+
+  	// execute loading 
+  	this.loader.present();
   }
 
 

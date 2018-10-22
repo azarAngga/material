@@ -10,7 +10,6 @@ import { FileChooser } from '@ionic-native/file-chooser';
  
 declare var cordova: any;
  
-@IonicPage()
 @Component({
   selector: 'page-choser',
   templateUrl: 'choser.html',

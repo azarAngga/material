@@ -19,7 +19,6 @@ import { LoadingController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-pemakaian',
   templateUrl: 'pemakaian.html',
@@ -29,15 +28,18 @@ export class PemakaianPage {
 	start_date: any ;
 	
 	end_date: any ;
-	no_wo: any ;
+	no_wo: any ="00";
 	sto: any ;
 	no_permintaan: any ;
-	no_telepon: any ;
+	no_telepon: any ;	
 	no_inet: any ;
 	nama_pelanggan: any ;
 	menu: any  = "order";
+	alamat_pelanggan: any;
 	//nik: any = '95130809';
-	nik: any = '17930960';
+	//nik: any = '17930960';
+	nik: any;
+	no_kontak: any;
 
 	hk: any ;
 	dp: any ;
@@ -102,8 +104,8 @@ export class PemakaianPage {
 	public loadingCtrl: LoadingController,
    private device: Device,
    private storage: Storage
-   ) {
-	   console.log(this.uri_api_alista+'get_data_list_material.php');
+   ){
+   	  this.no_wo = this.no_permintaan;
    	  this.tanggal_mulai 	 = new Date().toISOString();
 	  this.tanggal_selesai = new Date().toISOString();
       //var date1 = new Date();
@@ -113,13 +115,17 @@ export class PemakaianPage {
 	    console.log('con', val);
 	  });
 
+
       //this.start_date = date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
       this.start_date = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
       this.end_date   = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
-      this.actionGetMaterial();
-	  
-	  this.loadMaterial(this.nik);
-
+      
+	  this.storage.get('nik').then((val) => {
+	  	this.nik = val;
+	  	this.actionGetMaterial();
+	  	console.log("ini niknya"+this.nik);
+	  	this.loadMaterial(this.nik);
+	  });
   }
 
 
@@ -129,6 +135,7 @@ export class PemakaianPage {
   }
 
    presentProfileModal() {
+
    		let profileModal = this.modalCtrl.create(MitraPage, { userId: 8675309 });
    		profileModal.onDidDismiss(data => {
 		     console.log("inii"+data.data);
@@ -216,14 +223,13 @@ removeElememt(){
  		}
  	}
  	actionNext(){
-
  		var no = 1;
  		var id_barang = [];
  		var volume = [];
  		var satuan = [];
 
- 		if(this.no_wo == undefined){
- 			this.showAlert("No WO Tidak boleh kosong");
+ 		if(this.no_kontak == undefined){
+ 			this.showAlert("No no kontak tidak boleh kosong");
  		}else if(this.sto == undefined){
  			this.showAlert("STO Tidak boleh kosong");
  		}else if(this.no_permintaan == undefined){
@@ -238,6 +244,8 @@ removeElememt(){
  			this.showAlert("End Date Tidak boleh kosong");
  		}else if(this.nama_pelanggan == undefined){
  			this.showAlert("Nama Pelanggan Tidak boleh kosong");
+ 		}else if(this.alamat_pelanggan == undefined){
+ 			this.showAlert("Nama alamat pelanggan Tidak boleh kosong");
  		}else{
  			
  			while(no <= this.no_row){
@@ -308,9 +316,11 @@ removeElememt(){
 			console.log("ini_parmeter "+wo);
 
 			//execute url post
+			this.loading();
 			this.http.post(this.uri_api_alista+'ios/put_data_pemakaian_halaman1.php',wo,requestOptions)
 			.map(res => res.json())
 			.subscribe(data => {
+				this.loader.dismiss();
 				var data_response = data.status;
 				if(data_response == true){
 			
@@ -325,6 +335,7 @@ removeElememt(){
 						'drop_core':this.drop_core,
 						'nama_mitra':this.nama_mitra,
 						'no_wo':this.no_wo,
+						'no_kontak':this.no_kontak,
 						'meter_awal': this.meter_awal,
 						'meter_akhir': this.meter_akhir,
 						'sto':this.sto,
@@ -334,6 +345,7 @@ removeElememt(){
 						'start_date':this.start_date ,
 						'end_date':this.end_date ,
 						'nama_pelanggan':this.nama_pelanggan ,
+						'alamat_pelanggan':this.alamat_pelanggan ,
 						'hk':this.hk ,
 						'dp':this.dp ,
 						'klem_primer':this.klem_primer ,
@@ -349,7 +361,7 @@ removeElememt(){
 					this.showAlert(data.message);
 				}
 
-				this.loader.dismiss();
+				
 			}); 
 
 	 		
@@ -358,6 +370,7 @@ removeElememt(){
  	}
 
  	actionGetMaterial(){
+ 	  console.log(this.uri.uri_api_alista+"ios/get_data_list_material.php?nik="+this.nik);
  	  this.http.get(this.uri.uri_api_alista+"ios/get_data_list_material.php?nik="+this.nik)
       .map(res => res.json())
       .subscribe(data => {
@@ -419,9 +432,10 @@ removeElememt(){
     }
 
     validasiMaterial(datax){
+      this.loading();
       var valid = JSON.stringify(datax);
       var url = this.uri.uri_api_alista+"ios/validation_put_ba.php?nik="+this.nik+"&wo="+this.no_wo+"&halaman1="+valid;
-      console.log("validas",url);
+      console.log("validas :",url);
  	  this.http.get(url)
       .map(res => res.json())
       .subscribe(data => {
@@ -432,6 +446,7 @@ removeElememt(){
       	}else{
       		this.showAlert(data.message);
       	}
+      	this.loader.dismiss();
       });
   	}
 	
@@ -482,7 +497,7 @@ removeElememt(){
 	  	//let wo = 'nik=97150427';
 	  	
 	  	//execute url post
-      this.http.post(this.uri_api_alista+'get_data_list_material.php',wo,requestOptions)
+      this.http.post(this.uri_api_alista+'ios/get_data_list_material2.php',wo,requestOptions)
 	  	//this.http.post('http://api.telkomakses.co.id/API/alista/get_data_list_material.php',wo,requestOptions)
 	  	.map(res => res.json())
 	  	.subscribe(data => {
@@ -496,11 +511,16 @@ removeElememt(){
 	}
 	
 	loading(){
-  	this.loader = this.loadingCtrl.create({
-  		content: "please Wait.."
-  	})
+	  	this.loader = this.loadingCtrl.create({
+	  		content: "please Wait.."
+	  	})
 
-  	// execute loading 
-  	this.loader.present();
-  }
+	  	// execute loading 
+	  	this.loader.present();
+	  }
+
+	changeNoKontak(value){
+	    //manually launch change detection
+	    this.no_kontak = value.length > 8 ? value.substring(0,8) : value;
+	}
 }

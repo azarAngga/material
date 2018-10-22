@@ -15,7 +15,6 @@ import { LoadingController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-create-wo',
   templateUrl: 'create-wo.html',

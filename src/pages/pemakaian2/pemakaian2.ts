@@ -10,7 +10,6 @@ import { AlertController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-pemakaian2',
   templateUrl: 'pemakaian2.html',

@@ -18,7 +18,6 @@ import { LoadingController } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-ba',
   templateUrl: 'ba.html',
@@ -44,7 +43,7 @@ export class BaPage {
 	}
 
   getlistBA(nik){
-    var ini = this.uri.uri_api_alista+'amalia_app/get_data_list_wo.php?nik=95130650';
+    var ini = this.uri.uri_api_alista+'amalia_app/get_data_list_wo.php?nik='+this.nik;
     this.http.get(ini)
           .map(res => res.json())
           .subscribe(data => {
@@ -61,7 +60,7 @@ export class BaPage {
     this.loading();
     const fileTransfer: FileTransferObject = this.transfer.create();
     const url = this.uri.uri_api_alista+'ios/TCPDF/examples/isi_ba.php?no_wo='+no_wo;
-    fileTransfer.download(url, this.file.externalRootDirectory + no_wo+"_"+this.nik+".pdf").then((entry) => {
+    fileTransfer.download(encodeURI(url), this.file.externalRootDirectory + no_wo+"_"+this.nik+".pdf").then((entry) => {
       
     this.fileOpener.open(this.file.externalRootDirectory + no_wo+"_"+this.nik+".pdf", 'application/pdf')
       .then(() => this.loader.dismiss())
