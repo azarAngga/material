@@ -30,6 +30,7 @@ import { CreateWoPage } from '../pages/create-wo/create-wo';
 import { ModalNikBawahanPage } from '../pages/modal-nik-bawahan/modal-nik-bawahan'; 
 import { MitraPage } from '../pages/mitra/mitra';
 import { SignaturePage } from '../pages/signature/signature';
+import { DenahPage } from '../pages/denah/denah';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,6 +42,7 @@ import { UriProvider } from '../providers/uri/uri';
     MyApp,
     MitraPage,
     SignaturePage,
+    DenahPage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,
@@ -65,6 +67,7 @@ import { UriProvider } from '../providers/uri/uri';
     MyApp,
     MitraPage,
     SignaturePage,
+    DenahPage,
     HomePage,
     PemakaianPage,
     Pemakaian2Page,

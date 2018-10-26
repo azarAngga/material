@@ -40,6 +40,7 @@ export class PemakaianPage {
 	//nik: any = '17930960';
 	nik: any;
 	no_kontak: any;
+	no_material: any = false;
 
 	hk: any ;
 	dp: any ;
@@ -134,12 +135,17 @@ export class PemakaianPage {
     console.log('ionViewDidLoad PemakaianPage');
   }
 
-   presentProfileModal() {
+   presentProfileModal(x) {
 
-   		let profileModal = this.modalCtrl.create(MitraPage, { userId: 8675309 });
+   		let profileModal = this.modalCtrl.create(MitraPage, { sto:x  });
    		profileModal.onDidDismiss(data => {
 		     console.log("inii"+data.data);
-		     this.nama_mitra = data.data;
+		     if(data.jenis == 'mitra'){
+		     	this.nama_mitra = data.data;
+		     }else{
+		     	this.sto = data.data;
+		     }
+		     
 		});
    		profileModal.present();
  	}
@@ -198,9 +204,7 @@ export class PemakaianPage {
  		var no = this.no_row_dsg;
  		$('#parentDsg').append('<div id="dsg'+no+'"><table width="100%"><tr><td width="50%"><div align="center">Designator</div></td><td width="40%" colspan="2"><div align="center">Jumlah</div></td></tr><tr><td width="40%"><div align="center"><select width="10" id="designator'+no+'">'+str_app+'</select></div><td><td width="40%"><div align="center"><input  width="5" type="number" id="jumlah_dsg'+no+'" style="border-width: 1px;" /></div><td><td width="20%"><br/><br/><br/></td><td></tr></table></div>');
  	}
-
  	
-
  	removeElememtDsg(){
  		var no = this.no_row_dsg;
  		$('#dsg'+no).remove();
@@ -209,11 +213,8 @@ export class PemakaianPage {
  			this.no_row_dsg = 0;
  		}
  	}
-
- 	ngAfterViewInit(){
- 		
- 	}
-removeElememt(){
+	
+	removeElememt(){
  		var no = this.no_row;
  		//alert(x);
  		$('#el'+no).remove();
@@ -222,7 +223,9 @@ removeElememt(){
  			this.no_row = 0;
  		}
  	}
+
  	actionNext(){
+ 		
  		var no = 1;
  		var id_barang = [];
  		var volume = [];
@@ -311,7 +314,7 @@ removeElememt(){
 			
 			console.log("no string "+volume_m);
 			console.log("with string "+JSON.stringify(volume_m));
-			let wo = 'wo_number='+this.no_wo+'&nik='+this.nik+'&id_barang='+id_barang_m+'&volume='+volume_m+'&flag=ionic&namafile='+this.nama_file;
+			let wo = 'wo_number='+this.no_wo+'no_material='+this.no_material+'&nik='+this.nik+'&id_barang='+id_barang_m+'&volume='+volume_m+'&flag=ionic&namafile='+this.nama_file;
 			//this.showAlertNews(wo);
 			console.log("ini_parmeter "+wo);
 
@@ -322,7 +325,10 @@ removeElememt(){
 			.subscribe(data => {
 				this.loader.dismiss();
 				var data_response = data.status;
-				if(data_response == true){
+				if(!this.no_material){
+					this.storage.set('data',datas);
+	 				this.navCtrl.push(Pemakaian2Page);
+				}else if(data_response == true){
 			
 					var datas = {
 						'jumlah_tiang_telpn':this.jumlah_tiang_telpn,
@@ -354,18 +360,13 @@ removeElememt(){
 						'other_m2': {'id_barang':id_barang_m2,'stok':stok_m2,'satuan':satuan_m2,'volume':volume_m2,'wo_number':wo_number_m2} ,
 						'designator': {'designator':designator,'jumlah':jumlah} ,
 					};
-					//this.navCtrl.setRoot(HomePage);
-					this.validasiMaterial(datas);
-					//this.showAlert(data.message);
+					//this.validasiMaterial(datas);
+					this.storage.set('data',datas);
+	 				this.navCtrl.push(Pemakaian2Page);
 				}else{
 					this.showAlert(data.message);
 				}
-
-				
 			}); 
-
-	 		
-			
  		}
  	}
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController,ViewController } from 'ionic-angular';
 import {SignaturePage} from '../signature/signature'
+import {DenahPage} from '../denah/denah'
 import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
@@ -33,6 +34,7 @@ export class Pemakaian4Page {
   menggunakan_isp_view: any;
   public signatureImage1 : any;
   public signatureImage2 : any;
+  public denah : any;
   signatureImage: any;
   data: any;
   data2: any;
@@ -45,6 +47,7 @@ export class Pemakaian4Page {
   loader: any;
 
   nama_signature: any;
+  tempat_ttd: any;
 
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
@@ -130,20 +133,45 @@ export class Pemakaian4Page {
       modal2.present();
   }
 
-  actionChangeAlasanDecline(){
-		// if(x == 'Harga yang diinginkan'){
-		// 	this.harga_view = 1;
-		// }else if(x =='menggunakan ISP'){
-		// 	this.menggunakan_isp_view = 1;
-		// 	this.harga_view = 0;
-		// }else{
-		// 	this.menggunakan_isp_view = 0;
-		// 	this.harga_view = 0;
-		// }
+  openModalDenah(){
+     //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+       let modal3 = this.modalController.create(DenahPage);
+       modal3.onDidDismiss(data =>{
+        this.loading();
+        this.denah = data.signatureImage;
+        this.upload(this.nama_signature+"_denah.png",this.denah);
+        //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+       });
+      modal3.present();
   }
 
   actionPut(){ 
-    if(this.signatureImage1 == undefined){
+
+     var data4 = {
+          email:"te",
+          nik:this.nik,
+          kendala:this.kendala,
+          alasan_decline:this.alasan_decline,
+          harga:this.harga,
+          denah:this.denah,
+          tempat_ttd:this.tempat_ttd,
+          harga_view:this.harga_view,
+          menggunakan_isp_view:this.menggunakan_isp_view,
+          url_ttd_pelanggan:this.nama_signature+"_1.png",
+          url_ttd_mitra:this.nama_signature+"_2.png",
+        }
+    
+        var js = JSON.stringify(this.data);
+        var js2 = JSON.stringify(this.data2);
+        var js3 = JSON.stringify(this.data3);
+        var js4 = JSON.stringify(data4);
+        
+        var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian.php?halaman1="+js+"&halaman2="+js2+"&halaman3="+js3+"&halaman4="+js4+"&versi="+this.uri.versi;
+        console.log(ini);  
+
+    if(this.tempat_ttd == undefined){
+        this.showAlert("Kolom Kota tidak boleh kosong");
+    }else if(this.signatureImage1 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
     }else if(this.signatureImage2 == undefined){
         this.showAlert("Tanda tangan pelanggan tidak boleh kosong");
@@ -220,6 +248,8 @@ export class Pemakaian4Page {
           kendala:this.kendala,
           alasan_decline:this.alasan_decline,
           harga:this.harga,
+          denah:this.denah,
+          tempat_ttd:this.tempat_ttd,
           harga_view:this.harga_view,
           menggunakan_isp_view:this.menggunakan_isp_view,
           url_ttd_pelanggan:this.nama_signature+"_1.png",

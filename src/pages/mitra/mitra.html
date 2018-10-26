@@ -1,6 +1,6 @@
 
 <ion-item>
-    <ion-label fixed>Nama Mitra</ion-label>
+    <ion-label fixed>{{string_placeholder}}</ion-label>
     <ion-input [(ngModel)]="search" (keyup.enter)="searchAction()" type="text" value=""></ion-input>
 </ion-item>
 <button color="light" ion-button full (click)="searchAction()">Search</button>

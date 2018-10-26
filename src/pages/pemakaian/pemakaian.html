@@ -49,7 +49,7 @@
     </ion-card>
     </div>
 
-  <ion-item (click)="presentProfileModal()" *ngIf="view_nama_mitra == 2">
+  <ion-item (click)="presentProfileModal('mitra')" *ngIf="view_nama_mitra == 2">
      <ion-label stacked><font color="black">Nama Mitra</font></ion-label>
     <ion-input placeholder="Tulis sesuatu"  disabled [(ngModel)]="nama_mitra" style="color:grey" ></ion-input>
     
@@ -62,7 +62,7 @@
 
   <ion-item>
     <ion-label stacked><font color="black">STO</font></ion-label>
-    <ion-input placeholder="Tulis sesuatu" [(ngModel)]="sto" style="color:grey"></ion-input>
+    <ion-input (click)="presentProfileModal('sto')"  disabled  placeholder="Tulis sesuatu" [(ngModel)]="sto" style="color:grey"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -127,6 +127,23 @@
   </div>
   <div *ngSwitchCase="'material'">
  
+ <ion-card width="100%">
+      <ion-card-content>
+        <ion-list>
+          <table width="100%">
+              <tr>
+              <td valign="top" width="40%">
+                  <ion-checkbox color="green" [(ngModel)]="no_material"></ion-checkbox>
+                  Tidak menggunakan material 
+              </td>
+            </tr>
+          </table>
+        
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  <br/>
+
   <ion-item-group *ngFor="let row of data_wo; let i =index">
     <ion-item-divider color="light" text-wrap> ID Barang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  <b>{{row.id_barang}}</b>  </ion-item-divider>
     <ion-item>Stock Barang  &nbsp;&nbsp;&nbsp;&nbsp;: {{row.stok}}</ion-item>
@@ -135,9 +152,10 @@
         <ion-label >Volume Update &nbsp;: </ion-label>
         <ion-input value="{{nol.value}}" [(ngModel)]="modeKeys[i]" type="text" placeholder="..."  ></ion-input>
     </ion-item>
-
   </ion-item-group>
-    <div hidden *ngIf="platform_device =='Android'">
+
+
+  <div hidden *ngIf="platform_device =='Android'">
         <ion-item>
             File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
             <button wrap-text ion-button color="danger"  (click)="browse()">Upload</button> {{path}}
@@ -204,7 +222,6 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-
 
     <table>
       <tr>

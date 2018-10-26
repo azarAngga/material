@@ -17,10 +17,11 @@ export class UriProvider {
   uri_app_amalia: any = 'http://180.250.124.181/API/amalia/';
   uri_api_wimata: any = 'http://180.250.124.181/API/wimata/';
   uri_api_amalia: any = 'http://180.250.124.181/API/amalia/';
-  uri_api: any = 'http://180.250.124.181/API/';*/
-  versi = 7;
-  prod: any= 'http://api.telkomakses.co.id/';
-  //prod: any= 'http://180.250.124.181/';
+  //uri_api: any = 'http://180.250.124.181/API/';*/
+  
+  //prod: any= 'http://api.telkomakses.co.id/';
+  prod: any= 'http://180.250.124.181/';
+  versi = 8;
   uri_api_alista: any = this.prod+'API/alista/';
   uri_app_amalia: any = this.prod+'API/amalia/';
   uri_api_wimata: any = this.prod+'API/wimata/';

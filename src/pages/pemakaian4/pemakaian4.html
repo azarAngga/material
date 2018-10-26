@@ -171,7 +171,17 @@
 		</ion-list>
 	  </ion-card-content>
 	</ion-card>
-	<div align="right"> Jakarta, {{tanggal_ttd}}</div>
+
+	<table width="100%">
+		<tr>
+			<td><div align="center">Gambar daerah denah pelanggan</div></td>
+		</tr>
+		<tr>
+			<td align="center"  width="50%"><div (click)="openModalDenah()"  style="border-color: grey; border-style: double;width: 250px;height: 200px" ><img *ngIf="denah" style="width: 100px;height: 100px" [src]="denah" ></div></td>
+		</tr>
+	</table>
+
+	<div align="right"> <input  type="text" [(ngModel)]="tempat_ttd" value=""  placeholder="Tulis sesuatu"/> , {{tanggal_ttd}}</div>
 	<br/>
 	
 	<table width="100%">
@@ -206,7 +216,7 @@
 				</div>
 			</td>
 		</tr>
-		</table>
+	</table>
 
 					
 </div>

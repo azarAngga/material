@@ -24,8 +24,6 @@
 						<th width="100%" colspan="2" >
 							<div  style="margin-left: -120px">Modem yang dipasang / ditarik *) </div>
 
-							
-							  
 							  <ion-list>
 							  <ion-item>
 								<ion-label>Modem</ion-label>
@@ -173,9 +171,18 @@
 		    		<ion-radio value="2"></ion-radio> 2P
 		    	</td>
 		    	<td>
-		    		<ion-radio  value="4"></ion-radio> STP Tambahan
+		    		<ion-radio  value="4"></ion-radio> STB Tambahan
 		    	</td>
 	    	</tr>
+	    	<tr>
+	    		<td>
+		    		<ion-radio value="5"></ion-radio> Change STB
+		    	</td>
+		    	<td>
+		    		
+		    	</td>
+	    	</tr>
+
 	    </table>
 		</ion-list>
 	  </ion-card-content>
@@ -190,20 +197,54 @@
 	  <ion-card-content>
 	  	<ion-list radio-group [(ngModel)]="migrasi">
 	    <table width="100%">
-	    	<tr>
+	    	<tr hidden>
 	    		<td width="50%">
 		    		<ion-radio checked="true" value="1"></ion-radio> Infrastruktur
 		    	</td>
 		    </tr>
+		    <tr >
+	    		<td width="50%">
+		    		<ion-radio checked="true" value="4"></ion-radio>  Infrastruktur 1P - 1P
+		    	</td>
+		    	<td>
+		    		<ion-radio  value="10"></ion-radio> Layanan 1P-2P
+		    	</td>
+
+		    </tr>
 		    <tr>
+		    	<td width="50%">
+		    		<ion-radio checked="true" value="5"></ion-radio>  Infrastruktur 1P - 2P
+		    	</td>
 		    	<td>
 		    		<ion-radio  value="2"></ion-radio> Layanan 1P-3P
 		    	</td>
 	    	</tr>
 	    	<tr>
+	    		<td width="50%">
+		    		<ion-radio checked="true" value="6"></ion-radio>  Infrastruktur 1P - 3P
+		    	</td>
 		    	<td>
 		    		<ion-radio  value="3"></ion-radio> Layanan 2P-3P
 		    	</td>
+	    	</tr>
+	    	<tr>
+	    		<td width="50%">
+		    		<ion-radio checked="true" value="7"></ion-radio>  Infrastruktur 2P - 2P
+		    	</td>
+		    	<td>
+		    	</td>
+	    	</tr>
+	    	<tr>
+	    		<td width="50%">
+		    		<ion-radio checked="true" value="8"></ion-radio>  Infrastruktur 2P - 3P
+		    	</td>
+		    	<td></td>
+	    	</tr>
+	    	<tr>
+	    		<td width="50%">
+		    		<ion-radio checked="true" value="9"></ion-radio>  Infrastruktur 3P - 3P
+		    	</td>
+		    	<td></td>
 	    	</tr>
 	    	
 	    </table>

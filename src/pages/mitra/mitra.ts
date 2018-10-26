@@ -21,9 +21,18 @@ export class MitraPage {
   items: any;
   loader: any;
   search: any;
+  sto: any;
+  string_placeholder: any;
   json_data_vendor2: any;
   constructor(public navCtrl: NavController,public uri: UriProvider,public loadingCtrl: LoadingController, public navParams: NavParams,public http: Http,public viewCtrl: ViewController) {
-  	
+      console.log('sto', navParams.get('sto'));
+      this.sto = navParams.get('sto'); 
+      if( this.sto == "sto"){
+        this.string_placeholder = "STO";
+      }else{
+        this.string_placeholder = "Mitra";
+      }
+	
   }
 
   ionViewDidLoad() {
@@ -31,11 +40,11 @@ export class MitraPage {
   }
 
   loadData(){
+     console.log(this.uri.uri_api+"master/get_data_all_master_mitra.php?nama="+this.search);
       this.loading();
-      this.http.get(this.uri.uri_api+"master/get_data_all_master_mitra.php?nama="+this.search)
+      this.http.get(this.uri.uri_api+"master/get_data_all_master_mitra.php?nama="+this.search+"&jenis="+this.sto)
       .map(res => res.json())
       .subscribe(data => {
-      	this.nama_mitra = data.data;
       	this.json_data_vendor2 = data.mitra;
       	this.initializeItems();
         this.loader.dismiss();
@@ -72,7 +81,7 @@ export class MitraPage {
   }
 
  dismiss(x) {
-   let data = { 'data': x };
+   let data = { 'data': x,'jenis':this.sto };
    this.viewCtrl.dismiss(data);
  }
 
